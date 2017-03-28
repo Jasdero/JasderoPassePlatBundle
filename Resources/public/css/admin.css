@@ -1,0 +1,75 @@
+table.tablesorter {
+    background-color: #CDCDCD;
+    margin:10px 0pt 15px;
+    width: 100%;
+    text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+    background-color: #e6EEEE;
+    border: 1px solid #FFF;
+}
+table.tablesorter thead tr .header {
+    cursor: pointer;
+}
+table.tablesorter tbody td {
+    color: #3D3D3D;
+    background-color: #FFF;
+    vertical-align: top;
+}
+
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+    background-color: #8dbdd8;
+}
+
+body{
+    background-color: #eeeeee;
+}
+
+.iconAsLink{
+    color: white;
+}
+
+.addIcon{
+    color: #424242;
+}
+
+.deleteIcon{
+    color : #e53935;
+}
+
+.confirmIcon{
+    color: #388e3c;
+}
+
+.iconsBlock{
+    margin-top: 20px;
+}
+
+td{
+    padding: 2px 5px;
+}
+
+.linkAsBlock{
+    display: block;
+}
+
+h5{
+    font-weight: 300;
+}
+
+.nav-wrapper .brand-logo img {
+    height: 48px;
+    margin-left: 10px;
+    margin-top: 15%;
+}
+
+@media screen and (max-width: 600px) {
+    .nav-wrapper .brand-logo img {
+        height: 43px;
+
+    }
+}
+
+.notice{
+    font-weight: bold;
+}

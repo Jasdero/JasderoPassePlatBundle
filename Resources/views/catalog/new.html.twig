@@ -1,0 +1,23 @@
+{% extends '@JasderoPassePlat/Admin/adminLayout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h5 class="center-align">Catalog creation</h5>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.pretaxPrice) }}
+            {{ form_row(form.activated) }}
+            {{ form_row(form.vat) }}
+            <div class="iconsBlock col s12 center-align">
+                <a href="{{ path('catalog_index') }}" title="back">
+                    <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
+                </a>
+                <button type="submit" class="btn-floating grey darken-3" title="confirm"><i class="material-icons">done</i></button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

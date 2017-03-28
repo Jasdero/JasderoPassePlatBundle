@@ -1,0 +1,22 @@
+{% extends '@JasderoPassePlat/Admin/adminLayout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h5 class="center-align">Status creation</h5>
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.color, {'attr':{'class':'browser-default'}}) }}
+            {{ form_row(form.activated) }}
+            <div class="col s12 center-align iconsBlock">
+                <a href="{{ path('state_index') }}" title="back">
+                    <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
+                </a>
+                <button type="submit" class="btn-floating grey darken-3" title="confirm"><i class="material-icons">done</i></button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

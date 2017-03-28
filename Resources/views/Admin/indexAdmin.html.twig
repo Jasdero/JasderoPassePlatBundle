@@ -1,0 +1,24 @@
+{% extends '@JasderoPassePlat/Admin/adminLayout.html.twig' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h4 class="center-align">Manage orders in Google Drive</h4>
+                <div class="center-align">
+                    <a href="{{ path('checking', {'action' : true}) }}" class="btn">Scan folder for new orders</a>
+
+                    {% if newOrders %}
+                        <p><strong>Number of new orders created : {{ newOrders }}</strong></p>
+                    {% endif %}
+                    {% if errors %}
+                        {% for error in errors %}
+                            <p>{{ error }}</p><br>
+                        {% endfor %}
+                    {% endif %}
+                    <h4>OR</h4>
+                    <a href="{{ path('order_site_new') }}" class="btn light-green">Create a new order</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

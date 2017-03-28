@@ -1,0 +1,28 @@
+{% extends '@JasderoPassePlat/Admin/adminLayout.html.twig' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col s12 center-align">
+                <h5>User detail</h5>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Orders</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <a href="{{ path('orders_by_user', {id : user.id}) }}" title="view orders">{{ nbOrders }}</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

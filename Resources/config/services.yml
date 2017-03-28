@@ -1,0 +1,19 @@
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    jasdero_passe_plat.order_status:
+        class:      Jasdero\PassePlatBundle\Services\OrderStatus
+        arguments: ['@doctrine.orm.entity_manager']
+    jasdero_passe_plat.drive_folder_as_status:
+        class:    Jasdero\PassePlatBundle\Services\DriveFolderAsStatus
+        arguments: ['@jasdero_passe_plat.drive_connection','@doctrine.orm.entity_manager','%root_folder%']
+    jasdero_passe_plat.drive_connection:
+        class:    Jasdero\PassePlatBundle\Services\DriveConnection
+        arguments: ['@session', '@request_stack', "%auth_config%", "%path_to_refresh_token%"]
+
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension}

@@ -1,0 +1,66 @@
+{% extends '@JasderoPassePlat/Admin/adminLayout.html.twig' %}
+{% block content %}
+    <div class="container">
+        <div class="row center-align">
+            <h5>Orders</h5>
+            <hr>
+            {% for state in states %}
+                {% set nbOrders = 0 %}
+                {% for order in state.orders %}
+                    {% set nbOrders = nbOrders+1 %}
+                {% endfor %}
+                {% if nbOrders != 0 %}
+                    <div class="col s4 m2">
+                        <a href="{{ path('orders_by_status', {'id':  state.id}) }}" class="white-text linkAsBlock"
+                           title="view list of orders">
+                            <div class="card-panel {{ state.color }}">
+                                {% set length = nbOrders|length %}
+                                {% if length > 3 and lg <=6 %}
+                                    {{ nbOrders|truncate(length-3, false, 'K') }}
+                                {% elseif length>6 %}
+                                    {{ nbOrders|truncate(length-6, false, 'M') }}
+                                {% else %}
+                                    {{ nbOrders }}
+                                {% endif %}
+                            </div>
+                        </a>
+                        <p>{{ state.name }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row center-align">
+            <h5>Products</h5>
+            <hr>
+            {% for state in states %}
+                {% set nbProducts = 0 %}
+                {% for product in state.products %}
+                    {% set nbProducts = nbProducts+1 %}
+                {% endfor %}
+                {% if nbProducts != 0 %}
+                    <div class="col s4 m2">
+                        <a href="{{ path('products_by_status', {'id': state.id}) }}"
+                           class="btn-floating btn-large center-align {{ state.color }} white-text"
+                           title="view list of products">
+                            {% set length = nbProducts|length %}
+                            {% if length>3 and length<6 %}
+                                {{ nbProducts|truncate(length-3, false, 'K') }}
+                            {% elseif length>6 %}
+                                {{ nbProducts|truncate(length-6, false, 'M') }}
+                            {% else %}
+                                {{ nbProducts }}
+                            {% endif %}
+                        </a>
+                        <p>{{ state.name }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row  center-align">
+            <div class="iconsBlock">
+                <a href="{{ path('checking') }}" class="addIcon" title="create a new order"><i
+                            class="medium material-icons">add_circle</i></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

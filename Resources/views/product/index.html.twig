@@ -1,0 +1,62 @@
+{% extends '@JasderoPassePlat/Admin/adminLayout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h5 class="center-align">Products list</h5>
+            <div class="col s12">
+                <table class="tablesorter responsive-table bordered" id="productstable">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Order</th>
+                        <th>Pretax-price</th>
+                        <th>Customer</th>
+                        <th>Vat rate</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('product_show', { 'id': product.id }) }}" class="{{ product.state.color }}-text linkAsBlock" title="view detail">
+                                    <i class="material-icons left">fiber_manual_record</i>{{ product.id }}
+                                </a>
+                            </td>
+                            <td class="center-align">
+                                <a href="{{ path('orders_show', {'id': product.orders.id}) }}" class="{{ product.orders.state.color }}-text linkAsBlock" title="view order">
+                                    <i class="material-icons left">stop</i>{{ product.orders.id }}
+                                </a>
+                            </td>
+                            <td>{{ product.pretaxPrice }}</td>
+                            <td><a href="{{ path('user_detail', {id : product.orders.user.id}) }}">
+                                {{ product.orders.user.username }}
+                                </a>
+                            </td>
+                            <td>{{ product.vatRate }}</td>
+                            <td>{{ product.state.name }}</td>
+                            <td class="center-align">
+                                <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn grey darken-3" title="edit"><i class="material-icons">edit</i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% block pagination %}
+                <div class="center-align">
+                    <h3>{{ knp_pagination_render(products) }}</h3>
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(function () {
+            $("#productstable").tablesorter();
+        })
+    </script>
+{% endblock %}

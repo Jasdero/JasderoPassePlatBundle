@@ -1,0 +1,21 @@
+{% extends '@JasderoPassePlat/Admin/adminLayout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h5 class="center-align">Product edit</h5>
+            {{ form_start(edit_form) }}
+            {{ form_widget(edit_form) }}
+            <div class="col s12 center-align iconsBlock">
+                <a href="{{ path('product_index') }}" title="back">
+                    <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
+                </a>
+                <button type="submit" class="btn-floating grey darken-3" title="confirm"><i class="material-icons">done</i></button>
+                {{ form_end(edit_form) }}
+                {{ form_start(delete_form) }}
+                <button type="submit" title="delete" class="btn-floating grey darken-3"><i class="material-icons">delete_forever</i></button>
+                {{ form_end(delete_form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

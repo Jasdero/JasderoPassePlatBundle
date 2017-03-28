@@ -1,0 +1,92 @@
+{% extends '@JasderoPassePlat/Admin/adminLayout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row center-align">
+            <h5>Statuses list</h5>
+            <div class="col s12">
+                <p class="notice">Drag and drop to sort statuses by order of importance</p>
+                <table id="table-status" class="bordered tablesorter">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Nb of products</th>
+                        <th>Nb of orders</th>
+                        <th>Color</th>
+                        <th>Activated</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for state in states %}
+                        <tr id="{{ state.id }}">
+                            <td><a href="{{ path('state_show', { 'id': state.id }) }}" class="btn grey darken-3" title="view detail">{{ state.id }}</a>
+                            </td>
+                            <td class="sorter">{{ state.name }}</td>
+                            <td>{{ state.description }}</td>
+                            <td class="center-align">
+                                {# counting  products affected by this state#}
+                                {% set nbProducts = 0 %}
+                                {% for product in state.products %}
+                                    {% set nbProducts = nbProducts+1 %}
+                                {% endfor %}
+                                <a href="{{ path('products_by_status', {'id': state.id}) }}"
+                                   class="btn-floating center-align blue-grey darken-1" title="view products">{{ nbProducts }}
+                                    / {{ totalProducts }}</a>
+                            </td>
+                            <td>
+                                {# counting  orders affected by this state#}
+                                {% set nbOrders = 0 %}
+                                {% for order in state.orders %}
+                                    {% set nbOrders = nbOrders+1 %}
+                                {% endfor %}
+                                <a href="{{ path('orders_by_status', {'id':  state.id}) }}"
+                                   class="btn blue-grey darken-3" title="view orders">{{ nbOrders }} / {{ totalOrders }}</a>
+                            </td>
+                            <td class="{{ state.color }}">{{ state.color }}</td>
+                            <td>{% if state.activated %}Yes{% else %}No{% endif %}</td>
+                            <td>
+                                <a href="{{ path('state_edit', { 'id': state.id }) }}" class="btn grey darken-3"
+                                   title="edit"><i class="material-icons">edit</i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="iconsBlock center-align">
+                    <a href="{{ path('state_new') }}" class="addIcon" title="create a new status"><i
+                                    class="medium material-icons">add_circle</i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(function () {
+            $.ajaxSetup(
+                {
+                    url: "{{ path('weight_change') }}",
+                    type: "POST"
+                }
+            ),
+                $('#table-status').rowSorter({
+                    onDrop: function () {
+                        var order = [];
+                        var token = '{{ token }}';
+                        $('#table-status').find("tr").each(function () {
+                            order.push($(this).attr('id'));
+                        });
+                        $.ajax({
+                            data: {request: order, token: token}, success: function () {
+                                location.reload(true);
+                            }
+                        });
+                    }
+                })
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends '@JasderoPassePlat/Admin/adminLayout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row center-block">
+            <h5 class="center-align">Create a new Order</h5>
+            <div class="col s10 m5 offset-m3 left-align">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                {{ form_row(form.catalogs) }}
+                {{ form_row(form.user) }}
+                <div class="center-align col s12 iconsBlock">
+                    <a href="{{ path('orders_index') }}" title="back">
+                        <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i>
+                        </button>
+                    </a>
+                    <button type="submit" class="btn-floating grey darken-3" title="confirm"><i class="material-icons">done</i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

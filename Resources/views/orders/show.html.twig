@@ -1,0 +1,76 @@
+{% extends '@JasderoPassePlat/Admin/adminLayout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h5 class="center-align">Order detail</h5>
+            <table>
+                <thead>
+                <tr>
+                    <th>Last update</th>
+                    <th>Date creation</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{% if order.lastUpdate %}{{ order.lastUpdate|date('Y-m-d') }}{% endif %}</td>
+                    <td>{% if order.dateCreation %}{{ order.dateCreation|date('Y-m-d') }}{% endif %}</td>
+                    <td><a href="{{ path('user_detail', {id : order.user.id}) }}">
+                        {{ order.user.username }}
+                        </a>
+                    </td>
+                    <td class="{{ order.state.color }}">{{ order.state.name }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <table>
+                <thead>
+                <tr>
+                    <th>Product Id</th>
+                    <th>Product Name</th>
+                    <th>Product description</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in order.products %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('product_show', {id : product.id}) }}" class="btn-floating center-align blue-grey darken-1" title="view product">
+                                {{ product.id }}
+                            </a>
+                        </td>
+                        <td>{{ product.catalog.name }}</td>
+                        <td>{{ product.catalog.description }}</td>
+                        {% if product.state %}
+                            <td class="{{ product.state.color }}">{{ product.state.name }}</td>
+                        {% endif %}
+                        <td>
+                            <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn grey darken-3" title="edit this product">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="iconsBlock col s12 center-align">
+            <a href="{{ path('orders_index') }}" title="back to the list">
+                <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
+            </a>
+            <a href="{{ path('orders_edit', { 'id': order.id }) }}" class="iconAsLink" title="edit">
+                <button type="button" class="btn-floating grey darken-3"><i class="material-icons">edit</i></button>
+            </a>
+            {{ form_start(delete_form) }}
+            <button type="submit" title="delete" class="btn-floating grey darken-3"><i class="material-icons">delete_forever</i></button>
+            {{ form_end(delete_form) }}
+        </div>
+    </div>
+{% endblock %}
