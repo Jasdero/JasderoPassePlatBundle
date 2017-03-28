@@ -49,6 +49,14 @@ you also need to configure your app accordingly.
 
 ##### Step 1 : download the bundle
 
+Begin by adding the following line to ``composer.json`` : 
+```json
+            "minimum-stability" : "dev",
+```
+
+This is required to allow the latest version of FOSUserBundle.
+
+
 Open a command console, enter your project directory and execute the
 following command to download the latest stable version of this bundle:
 ```console
