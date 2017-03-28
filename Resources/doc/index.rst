@@ -180,5 +180,5 @@ different.
 .. _`Row Sorter plugin`: http://www.jqueryscript.net/table/jQuery-Plugin-For-Drag-n-Drop-Sortable-Table-RowSorter-js.html
 .. _`Materialize`: http://materializecss.com/getting-started.html
 .. _`FOSUserBundle`: https://symfony.com/doc/master/bundles/FOSUserBundle/index.html
-.. _`Source code` : https://github.com/Jasdero/JasderoPassePlatBundle/tree/master/PassePlatBundle
+.. _`Source code` : https://github.com/Jasdero/JasderoPassePlatBundle
 
