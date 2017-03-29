@@ -158,6 +158,20 @@ Generate the tables for the bundle :
  ```console
  $ php bin/console doctrine:schema:update --force
  ```
+ 
+##### Step 6 : Installing assets
+
+to install assets, type the following command :
+ ```console
+ $ php bin/console assets:install
+ ```
+ 
+Then activate it in your base layout :
+```html
+    <link rel="stylesheet" href="{{ asset('bundles/jasderopasseplat/css/admin.css') }}">
+    <script src="{{ asset('bundles/jasderopasseplat/js/main.js') }}"></script>
+
+```
 
 #### Google Drive
 [Reference](https://developers.google.com/api-client-library/php/auth/web-app)

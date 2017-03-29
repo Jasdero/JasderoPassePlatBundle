@@ -164,6 +164,7 @@ Step 4 : importing routes
 Open your ``app/config/routing.yml`` and copy the following lines :
 
 .. code-block:: yml
+
         passe-plat-bundle:
             resource: "@JasderoPassePlatBundle/Controller"
             type:     annotation
@@ -178,6 +179,26 @@ Generate the tables for the bundle :
 .. code-block:: terminal
 
         $ php bin/console doctrine:schema:update --force
+
+
+Step 6 : Installing assets
+""""""""""""""""""""""""""
+
+To install assets, type the following command :
+
+.. code-block:: console
+
+        $ php bin/console assets:install
+
+
+Then activate it in your base layout :
+
+.. code-block:: html
+
+        <link rel="stylesheet" href="{{ asset('bundles/jasderopasseplat/css/admin.css') }}">
+        <script src="{{ asset('bundles/jasderopasseplat/js/main.js') }}"></script>
+
+
 
 Google Drive
 ^^^^^^^^^^^^
