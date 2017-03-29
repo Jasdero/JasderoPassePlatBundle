@@ -48,8 +48,7 @@ Requirements
  - The templates were built using `Materialize`_
 
 Don't forget to put the scripts in your ``base.html.twig`` as it is extended by the bundle.
-Since the bundle uses `FOSUserBundle`_
-you also need to configure your app accordingly.
+
 
 Configuration
 -------------
@@ -142,7 +141,20 @@ Update your ``parameters.yml`` accordingly :
             auth_config: yourPath # i.e. myProject/vendor/clientSecret.json
             root_folder: yourValue # i.e. MyApp
 
-For security purposes, it is strongly advised that your ``path_to_refresh_token`` and ``auth_config`` parameters point to a non-shared location (in your ``Vendor`` folder for example).
+For security purposes, it is strongly advised that your ``path_to_refresh_token`` and ``auth_config`` parameters point to a
+non-shared location (in your ``Vendor`` folder for example).
+
+Since the bundle uses `FOSUserBundle`_
+you also need to configure your app accordingly.
+Please note that this bundle provides a User table if you don't want/need to create a custom one . To extend it, just put the following line while
+configuring FOSUser.
+
+.. code-block:: yml
+
+        fos_user:
+
+            user_class: Jasdero\PassePlatBundle\Entity\User #this is the passe-plat basic user class
+
 
 Step 4 : generate the tables
 """"""""""""""""""""""""""""
