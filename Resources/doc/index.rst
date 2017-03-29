@@ -201,6 +201,13 @@ Inside create 3 more folders : one that will be scanned by your app (the ``folde
 orders (``new_orders_folder``) and lastly one for invalid orders (``errors_folder``).
 Just be sure that you enter the same values as in your ``config.yml``.
 
+Step 3 : Order format
+"""""""""""""""""""""
+
+On the first row as column titles : user | products.
+On following rows : the user mail | catalog ID.
+The user needs to be registered in your platform so that the order is valid.
+
 Recommendations
 """""""""""""""
 Be aware that if you change anything in your Google Drive Api configuration you MUST download credentials again as those will be
