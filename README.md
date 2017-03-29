@@ -40,7 +40,7 @@ are moved to the right folders (if the folder doesn't exist it is created).
 * [Row Sorter plugin](http://www.jqueryscript.net/table/jQuery-Plugin-For-Drag-n-Drop-Sortable-Table-RowSorter-js.html)
 * The templates were built using [Materialize](http://materializecss.com/getting-started.html)
 
-Don't forget to put the scripts in your `base.html.twig` as it is extended by the bundle.
+Don't forget to put the scripts in your `base.html.twig` as it is extended by the bundle and make sure to have a `{% block body %}` inside.
 
 
 ### Configuration
@@ -135,7 +135,18 @@ fos_user:
         user_class: Jasdero\PassePlatBundle\Entity\User #this is the passe-plat basic user class
 ```
 
-##### Step 4 : Generate the tables
+##### Step 4 : importing routes
+Open your `app/config/routing.yml` and copy the following lines :
+
+```yml
+passe-plat-bundle:
+    resource: "@JasderoPassePlatBundle/Controller"
+    type:     annotation
+```
+Please note that all routes are under the ``/admin`` prefix so you will need the according rights to access it.
+
+
+##### Step 5 : Generate the tables
 
 Generate the tables for the bundle :
 
@@ -151,8 +162,8 @@ Generate the tables for the bundle :
 Create a Google Account if you don't have one yet.
 Then you [activate the Drive API](https://console.developers.google.com/apis/library) for your application.
 After that you need to [create credentials](https://console.developers.google.com/projectselector/apis/credentials)
-and configure the redirect URI. By defaults it is the "/auth/checked" route in the bundle (don't forget 
-to put your domain ).
+and configure the redirect URI. By defaults it is the "/checked" and "/admin/checking" routes in the bundle (for example during dev it is "http://localhost:8000/app_dev.php/admin/checking" 
+AND "http://localhost:8000/app_dev.php/checked").
 Once you have downloaded your credentials, put it in the path you declared as `auth_config`.
 
 ##### Step 2 : Create the base folders
