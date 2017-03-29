@@ -124,10 +124,11 @@ Update your `parameters.yml` accordingly :
 For security purposes, it is strongly advised that your `path_to_refresh_token` and `auth_config` parameters point to a non-shared location
  (in your `Vendor` folder for example).
  
- Since the bundle uses `FOSUserBundle`_
+ Since the bundle uses [FOSUserBundle](https://symfony.com/doc/master/bundles/FOSUserBundle/index.html)
  you also need to configure your app accordingly.
  Please note that this bundle provides a User table if you don't want/need to create a custom one . To extend it, just put the following line while
  configuring FOSUser.
+ 
  
 ```yml
 fos_user:
@@ -135,7 +136,11 @@ fos_user:
         user_class: Jasdero\PassePlatBundle\Entity\User #this is the passe-plat basic user class
 ```
 
+ You also need to activate the [Knp Paginator Bundle](https://github.com/KnpLabs/KnpPaginatorBundle)
+
+
 ##### Step 4 : importing routes
+
 Open your `app/config/routing.yml` and copy the following lines :
 
 ```yml

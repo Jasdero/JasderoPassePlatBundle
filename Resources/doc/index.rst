@@ -149,6 +149,9 @@ you also need to configure your app accordingly.
 Please note that this bundle provides a User table if you don't want/need to create a custom one . To extend it, just put the following line while
 configuring FOSUser.
 
+ You also need to activate the `Knp Paginator Bundle`_
+
+
 .. code-block:: yml
 
         fos_user:
@@ -213,4 +216,4 @@ different.
 .. _`Materialize`: http://materializecss.com/getting-started.html
 .. _`FOSUserBundle`: https://symfony.com/doc/master/bundles/FOSUserBundle/index.html
 .. _`Source code` : https://github.com/Jasdero/JasderoPassePlatBundle
-
+.. _`Knp Paginator Bundle` : https://github.com/KnpLabs/KnpPaginatorBundle
