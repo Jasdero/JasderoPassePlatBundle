@@ -6,16 +6,8 @@ use Jasdero\PassePlatBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class DefaultController extends Controller
+class MainController extends Controller
 {
-    /**
-     * @Route("/", name="home")
-     */
-    public function indexAction()
-    {
-
-        return $this->render('JasderoPassePlatBundle:Default:index.html.twig');
-    }
 
     /**
      * access and display of dashboard
@@ -27,7 +19,7 @@ class DefaultController extends Controller
         $states = $em->getRepository('JasderoPassePlatBundle:State')->findAllStatesWithAssociations();
 
 
-        return $this->render('JasderoPassePlatBundle:Admin:dashboard.html.twig', array(
+        return $this->render('JasderoPassePlatBundle:main:dashboard.html.twig', array(
             'states' => $states,
         ));
 
@@ -46,7 +38,7 @@ class DefaultController extends Controller
         $orders = $em->getRepository('JasderoPassePlatBundle:Orders')->findBy(['user'=> $user]);
         $nbOrders = count($orders);
 
-        return $this->render('@JasderoPassePlat/Admin/userDetail.html.twig', array(
+        return $this->render('@JasderoPassePlat/main/userDetail.html.twig', array(
             'user' => $user,
             'orders' => $orders,
             'nbOrders' => $nbOrders

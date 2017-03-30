@@ -166,7 +166,7 @@ class OrderFromDriveController extends CheckingController
                 }
             }
 
-            return $this->render('@JasderoPassePlat/Admin/indexAdmin.html.twig', array(
+            return $this->render('@JasderoPassePlat/main/indexAdmin.html.twig', array(
                 'newOrders' => $numberOfNewOrders,
                 'errors' => $errorsOnOrders
             ));
