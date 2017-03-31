@@ -212,9 +212,9 @@ class StateController extends Controller
             }
         }
 
-        //redirect to home if something wrong
+        //redirect to index if something wrong
         if ($responseText == 'ERROR') {
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('state_index');
         } else {
             //doing the changes if everything is OK
 
@@ -222,19 +222,26 @@ class StateController extends Controller
             array_shift($newOrder);
 
             //setting statuses weights
+            //array to catch modified states
+            $modifiedStates = [];
             foreach ($newOrder as $key => $stateId) {
                 $state = $em->getRepository('JasderoPassePlatBundle:State')->findOneBy(['id' => $stateId]);
-                $state->setWeight(1000 - ($key * 100));
-                $em->persist($state);
+                $newWeight = 1000 - ($key * 100);
+                $currentWeight = $state->getWeight();
+
+                    //comparison to work only on modified states
+                    if ($newWeight !== $currentWeight){
+                        $modifiedStates[] = $state->getId();
+                        $state->setWeight($newWeight);
+                        $em->persist($state);
+                    }
             }
             $em->flush();
 
-            //updating orders statuses and drive folders
-            $orders = $em->getRepository('JasderoPassePlatBundle:Orders')->findAll();
-            foreach ($orders as $order) {
-                $this->get('jasdero_passe_plat.order_status')->orderStatusAction($order);
-                $this->get('jasdero_passe_plat.drive_folder_as_status')->driveFolder($order->getState()->getName(), $order->getId());
-            }
+            //updating concerned orders statuses and drive folders
+            $orders = $em->getRepository('JasderoPassePlatBundle:Orders')->findByMultipleStates($modifiedStates);
+            $this->get('jasdero_passe_plat.order_status')->multipleOrdersStatus($orders);
+
             return new Response();
         }
     }

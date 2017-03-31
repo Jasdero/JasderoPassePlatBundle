@@ -5,7 +5,9 @@
         <div class="row center-align">
             <h5>Statuses list</h5>
             <div class="col s12">
-                <p class="notice">Drag and drop to sort statuses by order of importance</p>
+                <p class="notice">Drag and drop to sort statuses by order of importance then click
+                    <button type="button" class="btn blue-grey darken-3" id="validOrder">here</button><img src="{{ asset('bundles/jasderopasseplat/images/ajax-loader.gif') }}" alt="" id="loader">
+                    to valid</p>
                 <table id="table-status" class="bordered tablesorter">
                     <thead>
                     <tr>
@@ -34,7 +36,7 @@
                                 {% endfor %}
                                 <a href="{{ path('products_by_status', {'id': state.id}) }}"
                                    class="btn-floating center-align blue-grey darken-1" title="view products">{{ nbProducts }}
-                                    / {{ totalProducts }}</a>
+                                    </a>/ {{ totalProducts }}
                             </td>
                             <td>
                                 {# counting  orders affected by this state#}
@@ -60,6 +62,8 @@
                     <a href="{{ path('state_new') }}" class="addIcon" title="create a new status"><i
                                     class="medium material-icons">add_circle</i></a>
                 </div>
+                <div>
+                </div>
             </div>
         </div>
     </div>
@@ -67,26 +71,46 @@
 {% block passe_plat_javascripts %}
     <script>
         $(function () {
-            $.ajaxSetup(
-                {
-                    url: "{{ path('weight_change') }}",
-                    type: "POST"
-                }
-            ),
-                $('#table-status').rowSorter({
-                    onDrop: function () {
-                        var order = [];
-                        var token = '{{ token }}';
-                        $('#table-status').find("tr").each(function () {
-                            order.push($(this).attr('id'));
-                        });
-                        $.ajax({
-                            data: {request: order, token: token}, success: function () {
-                                location.reload(true);
-                            }
-                        });
+            var loader = $('#loader');
+            var table = $('#table-status');
+            var button = $('#validOrder');
+
+            //calling plugin on table
+            table.rowSorter({
+            });
+
+            //hiding loader by default
+            loader.hide();
+
+            //showing loader on ajax
+            $(document).ajaxStart(function () {
+                loader.show();
+                button.hide();
+            });
+            $(document).ajaxComplete(function () {
+                loader.hide();
+                button.show();
+            });
+
+            //preparing ajax call
+            button.click(function () {
+                $.ajaxSetup(
+                    {
+                        url: "{{ path('weight_change') }}",
+                        type: "POST"
                     }
-                })
+                );
+                var order = [];
+                var token = '{{ token }}';
+                table.find("tr").each(function () {
+                    order.push($(this).attr('id'));
+                });
+                $.ajax({
+                    data: {request: order, token: token}, success: function () {
+                        location.reload(true);
+                    }
+                });
+            });
         })
     </script>
 {% endblock %}

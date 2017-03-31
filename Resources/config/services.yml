@@ -5,7 +5,7 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     jasdero_passe_plat.order_status:
         class:      Jasdero\PassePlatBundle\Services\OrderStatus
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager', '@jasdero_passe_plat.drive_folder_as_status']
     jasdero_passe_plat.drive_folder_as_status:
         class:    Jasdero\PassePlatBundle\Services\DriveFolderAsStatus
         arguments: ['@jasdero_passe_plat.drive_connection','@doctrine.orm.entity_manager','%root_folder%']

@@ -66,4 +66,16 @@ class OrdersRepository extends EntityRepository
 
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function findByMultipleStates(array $states)
+    {
+        $qb = $this->createQueryBuilder('o');
+        $qb
+            ->leftJoin('o.state', 's')
+            ->where('s.id IN (:states)')
+            ->setParameter('states', $states);
+
+
+        return $qb->getQuery()->getResult();
+    }
 }
