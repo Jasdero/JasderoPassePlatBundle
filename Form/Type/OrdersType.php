@@ -3,6 +3,7 @@
 namespace Jasdero\PassePlatBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Jasdero\PassePlatBundle\Entity\Catalog;
@@ -21,24 +22,27 @@ class OrdersType extends AbstractType
     {
         $builder
             ->add('catalogs', EntityType::class, array(
-            'class' => 'Jasdero\PassePlatBundle\Entity\Catalog',
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('u')
-                    ->where('u.activated = true');
-            },
-            'choice_label' => function (Catalog $product) {
-                return $product->getDescription() . ' Pre-tax price : ' . $product->getPretaxPrice() . '€';
-            },
-            'label' => 'Products',
-            'expanded' => true,
-            'multiple' => true,
-            'mapped' => false,
-        ))
+                'class' => 'Jasdero\PassePlatBundle\Entity\Catalog',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.activated = true');
+                },
+                'choice_label' => function (Catalog $product) {
+                    return $product->getDescription() . ' Pre-tax price : ' . $product->getPretaxPrice() . '€';
+                },
+                'label' => 'Products',
+                'expanded' => true,
+                'multiple' => true,
+                'mapped' => false,
+            ))
             ->add('user', EntityType::class, array(
                 'class' => 'Jasdero\PassePlatBundle\Entity\User',
                 'choice_label' => 'username',
                 'label' => 'Order owner',
                 'mapped' => 'false'
+            ))
+            ->add('comments', TextareaType::class, array(
+                'required' => false,
             ));
     }
 

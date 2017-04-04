@@ -84,7 +84,6 @@ class OrderFromDriveController extends CheckingController
                         array_shift($csv);
                         $csvFiles[] = $csv;
                     }
-
                     //formatting csv files to proper order format
                     $newOrders = $this->csvToOrders($csvFiles);
 
@@ -98,6 +97,7 @@ class OrderFromDriveController extends CheckingController
                             $ordersIds[] = $this->forward('JasderoPassePlatBundle:Orders:new', array(
                                 'user' => $user,
                                 'products' => $newOrder['products'],
+                                'comments' => $newOrder['comments'],
                                 //catching the response with ids
                             ))->getContent();
                         } else {
@@ -204,6 +204,7 @@ class OrderFromDriveController extends CheckingController
             $formattedOrder = array(
                 'user' => '',
                 'products' => '',
+                'comments' => '',
             );
             foreach ($order as $array) {
                 if ($array['user'] !== '') {
@@ -211,6 +212,9 @@ class OrderFromDriveController extends CheckingController
                 }
                 if ($array['products'] !== null) {
                     $formattedOrder['products'][] = (int)$array['products'];
+                }
+                if (isset($array['comments']) && $array['comments'] !== '') {
+                    $formattedOrder['comments'] = $array['comments'];
                 }
             }
             $formattedOrders[] = $formattedOrder;

@@ -128,8 +128,14 @@ class DriveFolderAsStatus
                 foreach ($completeOrder as $key => $order) {
                     $orderAsCsv[0][0] = 'user';
                     $orderAsCsv[0][1] = 'products';
+                    $orderAsCsv[0][2] = 'comments';
                     $orderAsCsv[$key + 1][] = $order->getOrders()->getUser()->getEmail();
                     $orderAsCsv[$key + 1][] = $order->getCatalog()->getId();
+                    if($order->getOrders()->getComments()){
+                        $orderAsCsv[$key + 1][] = $order->getOrders()->getComments();
+                    } else {
+                        $orderAsCsv[$key + 1][] = 'no comments';
+                    }
                 }
                 $newFile = fopen('orderToCsv.csv', 'w+');
                 foreach ($orderAsCsv as $files) {

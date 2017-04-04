@@ -194,9 +194,17 @@ Just be sure that you enter the same values as in your `config.yml`.
 
 ##### Step 3 : Order format
 
-On the first row as column titles : user | products.
-On following rows : the user mail | catalog ID.
+On the first row as column titles : user | products and eventually comments.
+On following rows : the user mail | catalog ID and eventually comments.
 The user needs to be registered in your platform so that the order is valid.
+
+Example :
+
+user | products | comments
+--- | --- | ---
+mail@mail.com | 1 | something
+ <empty> | 2 | <empty>
+ <empty> | 4 | <empty>
 
 ##### Recommendations
 Be aware that if you change anything in your Google Drive Api configuration you MUST download credentials again as those will be

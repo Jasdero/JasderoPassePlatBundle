@@ -64,10 +64,11 @@ class OrdersController extends Controller
      * @Method({"GET", "POST"})
      * @param User $user an authenticated user
      * @param array $products an array of ordered products
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @param string|null $comments
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
 
-    public function newAction(User $user, array $products)
+    public function newAction(User $user, array $products, string $comments = null)
     {
         $order = new Orders();
 
@@ -78,6 +79,9 @@ class OrdersController extends Controller
 
         //setting orders data
         $order->setUser($user);
+        if($comments){
+            $order->setComments($comments);
+        }
         $em->persist($order);
         $em->flush();
 
