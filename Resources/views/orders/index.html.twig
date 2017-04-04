@@ -4,13 +4,13 @@
     <div class="container">
         <div class="row">
             <div class="col s12">
-                <h5 class="center-align">Orders list</h5>
+                <h5 class="center-align">{{ container }} list</h5>
                 <table class="bordered tablesorter">
                     <thead>
                     <tr>
-                        <th>Order Id</th>
-                        <th>Product Id</th>
-                        <th>Product</th>
+                        <th>{{ container }} Id</th>
+                        <th>{{ content }} Id</th>
+                        <th>{{ content }}</th>
                         <th>Customer</th>
                         <th>Created on</th>
                         <th>Last update</th>
@@ -28,7 +28,7 @@
                             <tr>
                                 {% if pid != order.id %}
                                     {% set pid = order.id %}
-                                    <td><a href="{{ path('orders_show', { 'id': order.id }) }}" title="view order detail"
+                                    <td><a href="{{ path('orders_show', { 'id': order.id }) }}" title="view {{ container }} detail"
                                            class="{{ order.state.color }} white-text linkAsBlock center-align">{{ order.id }}</a>
                                     </td>
                                 {% else %}
@@ -37,7 +37,7 @@
                                 {% endif %}
                                 <td>
                                     <a href="{{ path('product_show', {'id':product.id}) }}"
-                                       title="view product detail" class="{{ product.state.color }}-text linkAsBlock"><i class="material-icons left">fiber_manual_record</i>{{ product.id }}</a>
+                                       title="view {{ content }} detail" class="{{ product.state.color }}-text linkAsBlock"><i class="material-icons left">fiber_manual_record</i>{{ product.id }}</a>
                                 </td>
                                 <td>
                                     {{ product.catalog.name }}
@@ -81,7 +81,7 @@
                 </div>
                 {% endblock %}
                 <div class="center-align iconsBlock">
-                    <a href="{{ path('checking') }}" class="addIcon" title="create a new order"><i
+                    <a href="{{ path('checking') }}" class="addIcon" title="create a new {{ container }}"><i
                                 class="medium material-icons">add_circle</i></a>
                 </div>
             </div>

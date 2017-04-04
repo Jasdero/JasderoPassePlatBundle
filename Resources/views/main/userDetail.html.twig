@@ -10,7 +10,7 @@
                 <tr>
                     <th>Username</th>
                     <th>Email</th>
-                    <th>Orders</th>
+                    <th>{{ container }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -18,7 +18,7 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>
-                        <a href="{{ path('orders_by_user', {id : user.id}) }}" title="view orders">{{ nbOrders }}</a>
+                        <a href="{{ path('orders_by_user', {id : user.id}) }}" title="view {{ container }}">{{ nbOrders }}</a>
                     </td>
                 </tr>
                 </tbody>

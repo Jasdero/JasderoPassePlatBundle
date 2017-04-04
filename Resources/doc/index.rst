@@ -129,6 +129,13 @@ Open the ``config.yml`` file of your project and put the following lines with yo
             drive_folder_as_status:
                 root_folder: "%root_folder%"
 
+        # the following lines determine what name you want to give to your container and content
+
+        twig:
+            globals:
+                container: yourValue # i.e. Order
+                content: yourValue # i.e. Products
+
 
 Update your ``parameters.yml`` accordingly :
 

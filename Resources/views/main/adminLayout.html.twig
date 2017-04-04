@@ -6,8 +6,8 @@
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="{{ path('dashboard') }}"><i class="material-icons left">dashboard</i>Dashboard</a></li>
-                <li><a href="{{ path('orders_index') }}"><i class="material-icons left">stop</i>Orders</a></li>
-                <li><a href="{{ path('product_index') }}"><i class="material-icons left">fiber_manual_record</i>Products</a></li>
+                <li><a href="{{ path('orders_index') }}"><i class="material-icons left">stop</i>{{ container }}</a></li>
+                <li><a href="{{ path('product_index') }}"><i class="material-icons left">fiber_manual_record</i>{{ content }}</a></li>
                 <li><a class='dropdown-button' data-beloworigin="true" href='#' data-activates='settings1'>Settings<i class="material-icons left">settings</i></a></li>
                 <ul id='settings1' class='dropdown-content'>
                     <li><a href="{{ path('catalog_index') }}">Catalog</a></li>
@@ -18,8 +18,8 @@
             </ul>
             <ul id="nav-mobile" class="side-nav">
                 <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ path('orders_index') }}"><i class="material-icons left">stop</i>Orders</a></li>
-                <li><a href="{{ path('product_index') }}"><i class="material-icons left">fiber_manual_record</i>Products</a></li>
+                <li><a href="{{ path('orders_index') }}"><i class="material-icons left">stop</i>{{ container }}</a></li>
+                <li><a href="{{ path('product_index') }}"><i class="material-icons left">fiber_manual_record</i>{{ content }}</a></li>
                 <li><a class='dropdown-button' data-beloworigin="true" href='#' data-activates='settings2'>Settings<i class="material-icons right">arrow_drop_down</i></a></li>
                 <ul id='settings2' class='dropdown-content'>
                     <li><a href="{{ path('catalog_index') }}">Catalog</a></li>

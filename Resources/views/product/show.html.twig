@@ -3,13 +3,13 @@
 {% block passe_plat_content %}
     <div class="container">
         <div class="row">
-            <h5 class="center-align">Product Detail </h5>
+            <h5 class="center-align">{{ content }} Detail </h5>
             <table>
                 <thead>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Order</th>
+                    <th>{{ container }}</th>
                     <th>Description</th>
                     <th>Pretax Price</th>
                     <th>Vat Rate</th>
@@ -22,7 +22,7 @@
                     <td class="btn-floating center-align blue-grey darken-1">{{ product.id }}</td>
                     <td>{{ product.catalog.name }}</td>
                     <td>
-                        <a href="{{ path('orders_show', {'id': product.orders.id}) }}" class="btn blue-grey darken-3" title="view order">
+                        <a href="{{ path('orders_show', {'id': product.orders.id}) }}" class="btn blue-grey darken-3" title="view {{ container }}">
                             {{ product.orders.id }}
                         </a>
                     </td>
@@ -40,10 +40,10 @@
             </table>
 
             <div class="iconsBlock col s12 center-align">
-                <a href="{{ path('product_index') }}" title="back to the list of products">
+                <a href="{{ path('product_index') }}" title="back to the list of {{ content }}">
                     <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
                 </a>
-                <a href="{{ path('orders_show', {'id': product.orders.id}) }}" title="view order">
+                <a href="{{ path('orders_show', {'id': product.orders.id}) }}" title="view {{ container }}">
                     <button type="button" class="btn-floating grey darken-3"><i class="material-icons">storage</i></button>
                 </a>
                 <a href="{{ path('product_edit', { 'id': product.id }) }}" class="iconAsLink" title="edit">

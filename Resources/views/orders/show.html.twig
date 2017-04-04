@@ -3,7 +3,7 @@
 {% block passe_plat_content %}
     <div class="container">
         <div class="row">
-            <h5 class="center-align">Order detail</h5>
+            <h5 class="center-align">{{ container }} detail</h5>
             <table>
                 <thead>
                 <tr>
@@ -30,9 +30,9 @@
             <table>
                 <thead>
                 <tr>
-                    <th>Product Id</th>
-                    <th>Product Name</th>
-                    <th>Product description</th>
+                    <th>{{ content }} Id</th>
+                    <th>{{ content }} Name</th>
+                    <th>{{ content }} Description</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -41,7 +41,7 @@
                 {% for product in order.products %}
                     <tr>
                         <td>
-                            <a href="{{ path('product_show', {id : product.id}) }}" class="btn-floating center-align blue-grey darken-1" title="view product">
+                            <a href="{{ path('product_show', {id : product.id}) }}" class="btn-floating center-align blue-grey darken-1" title="view {{ content }}">
                                 {{ product.id }}
                             </a>
                         </td>
@@ -51,7 +51,7 @@
                             <td class="{{ product.state.color }}">{{ product.state.name }}</td>
                         {% endif %}
                         <td>
-                            <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn grey darken-3" title="edit this product">
+                            <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn grey darken-3" title="edit this {{ content }}">
                                 <i class="material-icons">edit</i>
                             </a>
                         </td>

@@ -2,7 +2,7 @@
 {% block passe_plat_content %}
     <div class="container">
         <div class="row center-align">
-            <h5>Orders</h5>
+            <h5>{{ container }}</h5>
             <hr>
             {% for state in states %}
                 {% set nbOrders = 0 %}
@@ -12,7 +12,7 @@
                 {% if nbOrders != 0 %}
                     <div class="col s4 m2">
                         <a href="{{ path('orders_by_status', {'id':  state.id}) }}" class="white-text linkAsBlock"
-                           title="view list of orders">
+                           title="view list of {{ container }}">
                             <div class="card-panel {{ state.color }}">
                                 {% set length = nbOrders|length %}
                                 {% if length > 3 and lg <=6 %}
@@ -30,7 +30,7 @@
             {% endfor %}
         </div>
         <div class="row center-align">
-            <h5>Products</h5>
+            <h5>{{ content }}</h5>
             <hr>
             {% for state in states %}
                 {% set nbProducts = 0 %}
@@ -41,7 +41,7 @@
                     <div class="col s4 m2">
                         <a href="{{ path('products_by_status', {'id': state.id}) }}"
                            class="btn-floating btn-large center-align {{ state.color }} white-text"
-                           title="view list of products">
+                           title="view list of {{ content }}">
                             {% set length = nbProducts|length %}
                             {% if length>3 and length<6 %}
                                 {{ nbProducts|truncate(length-3, false, 'K') }}
@@ -58,7 +58,7 @@
         </div>
         <div class="row  center-align">
             <div class="iconsBlock">
-                <a href="{{ path('checking') }}" class="addIcon" title="create a new order"><i
+                <a href="{{ path('checking') }}" class="addIcon" title="create a new {{ container }}"><i
                             class="medium material-icons">add_circle</i></a>
             </div>
         </div>

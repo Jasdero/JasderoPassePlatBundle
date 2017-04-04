@@ -110,6 +110,12 @@ jasdero_passe_plat:
         auth_config: "%auth_config%"
     drive_folder_as_status:
         root_folder: "%root_folder%"
+        
+    # the following lines determine what name you want to give to your container and content
+twig:
+    globals:
+        container: yourValue # i.e. Order
+        content: yourValue # i.e. Products
 ```
 
 Update your `parameters.yml` accordingly :
@@ -132,7 +138,6 @@ For security purposes, it is strongly advised that your `path_to_refresh_token` 
  
 ```yml
 fos_user:
-
         user_class: Jasdero\PassePlatBundle\Entity\User #this is the passe-plat basic user class
 ```
 

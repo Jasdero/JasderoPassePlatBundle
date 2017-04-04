@@ -14,8 +14,8 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Nb of products</th>
-                        <th>Nb of orders</th>
+                        <th>Nb of {{ content }}</th>
+                        <th>Nb of {{ container }}</th>
                         <th>Color</th>
                         <th>Activated</th>
                         <th>Actions</th>
@@ -35,7 +35,7 @@
                                     {% set nbProducts = nbProducts+1 %}
                                 {% endfor %}
                                 <a href="{{ path('products_by_status', {'id': state.id}) }}"
-                                   class="btn-floating center-align blue-grey darken-1" title="view products">{{ nbProducts }}
+                                   class="btn-floating center-align blue-grey darken-1" title="view {{ content }}">{{ nbProducts }}
                                     </a>/ {{ totalProducts }}
                             </td>
                             <td>
@@ -45,7 +45,7 @@
                                     {% set nbOrders = nbOrders+1 %}
                                 {% endfor %}
                                 <a href="{{ path('orders_by_status', {'id':  state.id}) }}"
-                                   class="btn blue-grey darken-3" title="view orders">{{ nbOrders }} / {{ totalOrders }}</a>
+                                   class="btn blue-grey darken-3" title="view {{ container }}">{{ nbOrders }} / {{ totalOrders }}</a>
                             </td>
                             <td class="{{ state.color }}">{{ state.color }}</td>
                             <td>{% if state.activated %}Yes{% else %}No{% endif %}</td>

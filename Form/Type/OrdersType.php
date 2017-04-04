@@ -30,7 +30,6 @@ class OrdersType extends AbstractType
                 'choice_label' => function (Catalog $product) {
                     return $product->getDescription() . ' Pre-tax price : ' . $product->getPretaxPrice() . '€';
                 },
-                'label' => 'Products',
                 'expanded' => true,
                 'multiple' => true,
                 'mapped' => false,
@@ -38,7 +37,7 @@ class OrdersType extends AbstractType
             ->add('user', EntityType::class, array(
                 'class' => 'Jasdero\PassePlatBundle\Entity\User',
                 'choice_label' => 'username',
-                'label' => 'Order owner',
+                'label' => 'Owner',
                 'mapped' => 'false'
             ))
             ->add('comments', TextareaType::class, array(

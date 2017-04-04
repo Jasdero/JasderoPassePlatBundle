@@ -3,13 +3,13 @@
 {% block passe_plat_content %}
     <div class="container">
         <div class="row">
-            <h5 class="center-align">Products list</h5>
+            <h5 class="center-align">{{ content }} list</h5>
             <div class="col s12">
                 <table class="tablesorter responsive-table bordered" id="productstable">
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Order</th>
+                        <th>{{ container }}</th>
                         <th>Pretax-price</th>
                         <th>Customer</th>
                         <th>Vat rate</th>
@@ -26,7 +26,7 @@
                                 </a>
                             </td>
                             <td class="center-align">
-                                <a href="{{ path('orders_show', {'id': product.orders.id}) }}" class="{{ product.orders.state.color }}-text linkAsBlock" title="view order">
+                                <a href="{{ path('orders_show', {'id': product.orders.id}) }}" class="{{ product.orders.state.color }}-text linkAsBlock" title="view {{ container }}">
                                     <i class="material-icons left">stop</i>{{ product.orders.id }}
                                 </a>
                             </td>

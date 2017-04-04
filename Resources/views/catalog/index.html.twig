@@ -13,8 +13,8 @@
                     <th>Pretaxprice</th>
                     <th>Vat rate</th>
                     <th>Activated</th>
-                    <th>Products</th>
-                    <th>Nb of Orders</th>
+                    <th>{{ content }}</th>
+                    <th>Nb of {{ container }}</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -35,12 +35,12 @@
                             {% for product in catalog.products %}
                                 {% set nbProducts = nbProducts+1 %}
                             {% endfor %}
-                            <a href="{{ path('products_by_catalog', {'id': catalog.id}) }}" class="btn-floating center-align blue-grey darken-1" title="view products">
+                            <a href="{{ path('products_by_catalog', {'id': catalog.id}) }}" class="btn-floating center-align blue-grey darken-1" title="view {{ content }}">
                                 {{ nbProducts }}
                             </a>/{{ totalProducts }}
                         </td>
                         <td>
-                            <a href="{{ path('orders_by_catalog', {'id': catalog.id}) }}" class="btn blue-grey darken-3" title="view orders">
+                            <a href="{{ path('orders_by_catalog', {'id': catalog.id}) }}" class="btn blue-grey darken-3" title="view {{ container }}">
                                 {{ render(controller('JasderoPassePlatBundle:Catalog:catalogInOrders', {'catalog': catalog.id})) }}/{{ totalOrders }}</a>
                         </td>
                         <td>
