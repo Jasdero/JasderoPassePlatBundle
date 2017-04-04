@@ -29,7 +29,7 @@
                                 {% if pid != order.id %}
                                     {% set pid = order.id %}
                                     <td><a href="{{ path('orders_show', { 'id': order.id }) }}" title="view order detail"
-                                           class="{{ order.state.color }} white-text linkAsBlock"><i class="material-icons left">stop</i>{{ order.id }}</a>
+                                           class="{{ order.state.color }} white-text linkAsBlock center-align">{{ order.id }}</a>
                                     </td>
                                 {% else %}
                                     <td><p hidden>{{ order.id }}</p>
