@@ -40,7 +40,7 @@ class Product
      *
      * @ORM\ManyToOne(targetEntity="State", inversedBy="products")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="state_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="state_id", referencedColumnName="id", nullable=true)
      * })
      */
     private $state;

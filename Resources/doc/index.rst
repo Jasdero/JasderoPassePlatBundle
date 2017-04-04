@@ -156,7 +156,6 @@ you also need to configure your app accordingly.
 Please note that this bundle provides a User table if you don't want/need to create a custom one . To extend it, just put the following line while
 configuring FOSUser.
 
- You also need to activate the `Knp Paginator Bundle`_
 
 
 .. code-block:: yml
@@ -164,6 +163,9 @@ configuring FOSUser.
         fos_user:
 
             user_class: Jasdero\PassePlatBundle\Entity\User #this is the passe-plat basic user class
+
+You also need to activate the `Knp Paginator Bundle`_
+
 
 Step 4 : importing routes
 """""""""""""""""""""""""

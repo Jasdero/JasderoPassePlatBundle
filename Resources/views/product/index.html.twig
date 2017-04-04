@@ -35,7 +35,7 @@
                                 {{ product.orders.user.username }}
                                 </a>
                             </td>
-                            <td>{{ product.vatRate }}</td>
+                            <td>{% if product.vatRate %}{{ product.vatRate }}{% endif %}</td>
                             <td>{{ product.state.name }}</td>
                             <td class="center-align">
                                 <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn grey darken-3" title="edit"><i class="material-icons">edit</i></a>

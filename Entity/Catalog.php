@@ -59,7 +59,7 @@ class Catalog
      *
      * @ORM\ManyToOne(targetEntity="Vat")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="vat_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="vat_id", referencedColumnName="id", nullable=true)
      * })
      */
     private $vat;

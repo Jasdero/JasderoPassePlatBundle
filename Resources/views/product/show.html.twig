@@ -28,7 +28,7 @@
                     </td>
                     <td>{{ product.catalog.description }}</td>
                     <td>{{ product.pretaxPrice }}</td>
-                    <td>{{ product.vatRate }}</td>
+                    <td>{% if product.vatRate %}{{ product.vatRate }}{% endif %}</td>
                     <td>
                         <a href="{{ path('user_detail', {id : product.orders.user.id}) }}">
                             {{ product.orders.user.username }}

@@ -5,6 +5,7 @@ namespace Jasdero\PassePlatBundle\Form\Type;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,8 +18,11 @@ class ProductType extends AbstractType
     //Type used by the admin to edit a product line; only displays status entries which are activated
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('pretaxPrice')
-            ->add('vatRate')
+        $builder->add('pretaxPrice', NumberType::class)
+            ->add('vatRate', NumberType::class, array(
+                'required' => false,
+                'label' => 'Vat Rate (optional)'
+            ))
             ->add('state', EntityType::class, array(
                 'class'=>'Jasdero\PassePlatBundle\Entity\State',
                 'query_builder' => function (EntityRepository $er) {

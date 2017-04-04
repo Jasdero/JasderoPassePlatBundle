@@ -27,7 +27,7 @@
                         <td>{{ catalog.name }}</td>
                         <td>{{ catalog.description }}</td>
                         <td>{{ catalog.pretaxPrice }}</td>
-                        <td>{{ catalog.vat.rate }}</td>
+                        <td>{% if catalog.vat %}{{ catalog.vat.rate }}{% endif %}</td>
                         <td>{% if catalog.activated %}Yes{% else %}No{% endif %}</td>
                         <td class="center-align">
                             {# counting  products with this catalog entry#}

@@ -27,6 +27,8 @@ class CatalogType extends AbstractType
             ->add('vat', EntityType::class, array(
                 'class' => Vat::class,
                 'choice_label' => 'rate',
+                'label' => 'rate (optional)',
+                'required' => false
             ));
     }
 
