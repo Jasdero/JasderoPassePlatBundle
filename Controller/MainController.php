@@ -63,7 +63,7 @@ class MainController extends Controller
     public function synchAllWithDriveAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $affectedOrders = $em->getRepository('JasderoPassePlatBundle:Orders')->findBy(['isDriveSynchro' => false]);
+        $affectedOrders = $em->getRepository('JasderoPassePlatBundle:Orders')->findBy(['driveSynchro' => false]);
         $totalOrders = count($affectedOrders);
 
 

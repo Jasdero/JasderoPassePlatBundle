@@ -8,17 +8,14 @@ use Doctrine\ORM\EntityManager;
 class OrderStatus
 {
 
-    private $driveFolderAsStatus;
 
     /**
      * OrderStatus constructor.
      * @param EntityManager $em
-     * @param DriveFolderAsStatus $driveFolderAsStatus
      */
-    public function __construct(EntityManager $em, DriveFolderAsStatus $driveFolderAsStatus)
+    public function __construct(EntityManager $em)
     {
         $this->em = $em;
-        $this->driveFolderAsStatus = $driveFolderAsStatus ;
     }
 
     /**
@@ -54,7 +51,7 @@ class OrderStatus
 
             //Setting order status
             $order->setState($status);
-            $order->setIsDriveSynchro(false);
+            $order->setDriveSynchro(false);
             $this->em->persist($order);
         }
         $this->em->flush();

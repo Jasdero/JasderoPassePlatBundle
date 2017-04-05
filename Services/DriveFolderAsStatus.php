@@ -163,7 +163,7 @@ class DriveFolderAsStatus
 
             //setting order as synchronized
             $order = $this->em->getRepository('JasderoPassePlatBundle:Orders')->find($orderId);
-            $order->setIsDriveSynchro(true);
+            $order->setDriveSynchro(true);
             $this->em->flush();
 
         } else {

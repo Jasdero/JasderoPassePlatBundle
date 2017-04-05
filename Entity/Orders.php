@@ -48,9 +48,9 @@ class Orders
     /**
      * @var boolean
      *
-     * @ORM\Column(name="is_drive_synchro", type="boolean")
+     * @ORM\Column(name="drive_synchro", type="boolean")
      */
-    private $isDriveSynchro = 0;
+    private $driveSynchro = 0;
 
     /**
      * @var \User
@@ -286,26 +286,26 @@ class Orders
     }
 
     /**
-     * Set isDriveSynchro
+     * Set driveSynchro
      *
-     * @param boolean $isDriveSynchro
+     * @param boolean $driveSynchro
      *
      * @return Orders
      */
-    public function setIsDriveSynchro($isDriveSynchro)
+    public function setDriveSynchro($driveSynchro)
     {
-        $this->isDriveSynchro = $isDriveSynchro;
+        $this->driveSynchro = $driveSynchro;
 
         return $this;
     }
 
     /**
-     * Get isDriveSynchro
+     * Get driveSynchro
      *
      * @return boolean
      */
-    public function getIsDriveSynchro()
+    public function getDriveSynchro()
     {
-        return $this->isDriveSynchro;
+        return $this->driveSynchro;
     }
 }

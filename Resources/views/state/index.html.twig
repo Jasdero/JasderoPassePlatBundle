@@ -46,7 +46,7 @@
                                 {% for order in state.orders %}
                                     {% set nbOrders = nbOrders+1 %}
                                     {# checking for unsynchro with drive #}
-                                    {% if not order.isDriveSynchro %}
+                                    {% if not order.driveSynchro %}
                                         {% set isSynchro = false %}
                                     {% endif %}
                                 {% endfor %}
