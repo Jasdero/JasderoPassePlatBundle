@@ -22,6 +22,8 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {# var used to flag a need for drive synchronization #}
+                    {% set isSynchro = true %}
                     {% for state in states %}
                         <tr id="{{ state.id }}">
                             <td><a href="{{ path('state_show', { 'id': state.id }) }}" class="btn grey darken-3" title="view detail">{{ state.id }}</a>
@@ -43,6 +45,10 @@
                                 {% set nbOrders = 0 %}
                                 {% for order in state.orders %}
                                     {% set nbOrders = nbOrders+1 %}
+                                    {# checking for unsynchro with drive #}
+                                    {% if not order.isDriveSynchro %}
+                                        {% set isSynchro = false %}
+                                    {% endif %}
                                 {% endfor %}
                                 <a href="{{ path('orders_by_status', {'id':  state.id}) }}"
                                    class="btn blue-grey darken-3" title="view {{ container }}">{{ nbOrders }} / {{ totalOrders }}</a>
@@ -57,13 +63,17 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                {% if not isSynchro %}
+                    <blockquote>There are some {{ container }} not up to date on the Drive. Click
+                        <a href="{{ path('drive_action') }}">here</a> to go to the manager.
+                    </blockquote>
+                {% endif %}
 
                 <div class="iconsBlock center-align">
                     <a href="{{ path('state_new') }}" class="addIcon" title="create a new status"><i
                                     class="medium material-icons">add_circle</i></a>
                 </div>
-                <div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -73,7 +83,8 @@
         $(function () {
             var loader = $('#loader');
             var table = $('#table-status');
-            var button = $('#validOrder');
+            var buttonOrders = $('#validOrder');
+
 
             //calling plugin on table
             table.rowSorter({
@@ -85,15 +96,16 @@
             //showing loader on ajax
             $(document).ajaxStart(function () {
                 loader.show();
-                button.hide();
+                buttonOrders.hide();
+
             });
             $(document).ajaxComplete(function () {
                 loader.hide();
-                button.show();
+                buttonOrders.show();
             });
 
             //preparing ajax call
-            button.click(function () {
+            buttonOrders.click(function () {
                 $.ajaxSetup(
                     {
                         url: "{{ path('weight_change') }}",

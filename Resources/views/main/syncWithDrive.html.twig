@@ -1,0 +1,49 @@
+{% extends '@JasderoPassePlat/main/adminLayout.html.twig' %}
+{% block passe_plat_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h4 class="center-align">Synchronize {{ container }} in Google Drive</h4>
+                <div class="center-align">
+
+                    <p>There are some {{ container }} not up to date on the Drive. Click
+                        <button type="button" class="btn blue-grey darken-3" id="goSynchro">here</button>
+                        to update now.
+                        <br>
+                        <strong>Caution</strong> : this operation may require some time
+                    </p>
+                    <p id="progress"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block passe_plat_javascripts %}
+    <script>
+        $(function () {
+
+            var button = $('#goSynchro');
+            var display = $('#progress');
+
+            function action(){
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('drive_synchro') }}",
+                    success: function(result){
+                        if(result !== 'done'){
+                        display.html(result+' {{ container }} remaining');
+                            action();
+                        }   else {
+                            display.html('All {{ container }} are synchronized');
+                        }
+                    }
+                });
+            }
+
+            button.click(function () {
+                action();
+            })
+        })
+
+    </script>
+{% endblock %}

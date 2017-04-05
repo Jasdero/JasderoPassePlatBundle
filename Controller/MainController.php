@@ -5,6 +5,7 @@ namespace Jasdero\PassePlatBundle\Controller;
 use Jasdero\PassePlatBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends Controller
 {
@@ -45,5 +46,33 @@ class MainController extends Controller
         ));
     }
 
+    /**
+     * access to command for sync with drive
+     * @Route("admin/drive/action", name="drive_action")
+     */
+    public function showDriveAction()
+    {
+        return $this->render('@JasderoPassePlat/main/syncWithDrive.html.twig');
+    }
+
+    /**
+     * synchronizing with drive
+     * @Route("/drive/synchro", name="drive_synchro")
+     * @return Response
+     */
+    public function synchAllWithDriveAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $affectedOrders = $em->getRepository('JasderoPassePlatBundle:Orders')->findBy(['isDriveSynchro' => false]);
+        $totalOrders = count($affectedOrders);
+
+
+        if ($totalOrders > 0){
+            $this->get('jasdero_passe_plat.drive_folder_as_status')->driveFolder($affectedOrders[0]->getState()->getName(), $affectedOrders[0]->getId());
+            return new Response($totalOrders);
+        } else {
+            return new Response('done');
+        }
+    }
 
 }

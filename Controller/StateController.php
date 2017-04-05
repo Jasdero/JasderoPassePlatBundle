@@ -7,6 +7,7 @@ use Jasdero\PassePlatBundle\Form\Type\StateType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -245,6 +246,8 @@ class StateController extends Controller
             return new Response();
         }
     }
+
+
 
     /**
      * Creates a form to delete a state entity.

@@ -22,6 +22,7 @@ class DriveFolderAsStatus
      * DriveFolderAsStatus constructor.
      * @param DriveConnection $drive
      * @param EntityManager $em
+     * @param $rootFolder
      */
     public function __construct(DriveConnection $drive, EntityManager $em, $rootFolder)
     {
@@ -159,6 +160,12 @@ class DriveFolderAsStatus
                     'uploadType' => 'multipart',
                     'fields' => 'id, parents, appProperties'));
             }
+
+            //setting order as synchronized
+            $order = $this->em->getRepository('JasderoPassePlatBundle:Orders')->find($orderId);
+            $order->setIsDriveSynchro(true);
+            $this->em->flush();
+
         } else {
             //if not authenticated restart for token
             return $this->drive->authCheckedAction();

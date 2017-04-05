@@ -9,9 +9,11 @@ class OrderStatus
 {
 
     private $driveFolderAsStatus;
+
     /**
      * OrderStatus constructor.
      * @param EntityManager $em
+     * @param DriveFolderAsStatus $driveFolderAsStatus
      */
     public function __construct(EntityManager $em, DriveFolderAsStatus $driveFolderAsStatus)
     {
@@ -52,8 +54,8 @@ class OrderStatus
 
             //Setting order status
             $order->setState($status);
+            $order->setIsDriveSynchro(false);
             $this->em->persist($order);
-            $this->driveFolderAsStatus->driveFolder($order->getState()->getName(), $order->getId());
         }
         $this->em->flush();
 

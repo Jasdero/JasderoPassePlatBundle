@@ -39,10 +39,18 @@ class Orders
     private $dateCreation;
 
     /**
+     * @var string
      *
      * @ORM\Column(name="comments", type="text", nullable=true)
      */
     private $comments;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_drive_synchro", type="boolean")
+     */
+    private $isDriveSynchro = 0;
 
     /**
      * @var \User
@@ -275,5 +283,29 @@ class Orders
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set isDriveSynchro
+     *
+     * @param boolean $isDriveSynchro
+     *
+     * @return Orders
+     */
+    public function setIsDriveSynchro($isDriveSynchro)
+    {
+        $this->isDriveSynchro = $isDriveSynchro;
+
+        return $this;
+    }
+
+    /**
+     * Get isDriveSynchro
+     *
+     * @return boolean
+     */
+    public function getIsDriveSynchro()
+    {
+        return $this->isDriveSynchro;
     }
 }
