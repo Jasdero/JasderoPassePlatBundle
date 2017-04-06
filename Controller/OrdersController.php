@@ -99,7 +99,9 @@ class OrdersController extends Controller
             $newProductLine->setOrders($order);
             $newProductLine->setCatalog($catalog);
             $newProductLine->setPretaxPrice($catalog->getPretaxPrice());
-            $newProductLine->setVatRate($catalog->getVat()->getRate());
+            if($catalog->getVat() !== null){
+                $newProductLine->setVatRate($catalog->getVat()->getRate());
+            }
             $em->persist($newProductLine);
         }
         $em->flush();
@@ -107,7 +109,6 @@ class OrdersController extends Controller
 
         //setting order status
         $this->get('jasdero_passe_plat.order_status')->orderStatusAction($order);
-
 
         //give back the new order id
         return New Response ($order->getId());

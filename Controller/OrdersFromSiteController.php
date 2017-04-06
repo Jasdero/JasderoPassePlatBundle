@@ -45,10 +45,7 @@ class OrdersFromSiteController extends Controller
 
             //retrieving order and creating file on Drive if activated
             if ($driveActivation) {
-                $em = $this->getDoctrine()->getManager();
-                $order = $em->getRepository('JasderoPassePlatBundle:Orders')->findOneBy(['id'=>$orderId]);
-                $status = $order->getState()->getName();
-                $this->get('jasdero_passe_plat.drive_folder_as_status')->driveFolder($status, $orderId);
+               $this->driveCreation($orderId);
             }
 
             //displaying the new order
@@ -58,5 +55,16 @@ class OrdersFromSiteController extends Controller
         return $this->render('@JasderoPassePlat/orders/new.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+     * @param $orderId
+     */
+    private function driveCreation($orderId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $order = $em->getRepository('JasderoPassePlatBundle:Orders')->findOneBy(['id' => $orderId]);
+        $status = $order->getState()->getName();
+        $this->get('jasdero_passe_plat.drive_folder_as_status')->driveFolder($status, $orderId);
     }
 }

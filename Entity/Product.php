@@ -31,7 +31,7 @@ class Product
     /**
      * @var float
      *
-     * @ORM\Column(name="vat_rate", type="float", precision=10, scale=0, nullable=false)
+     * @ORM\Column(name="vat_rate", type="float", precision=10, scale=0, nullable=true)
      */
     private $vatRate;
 
