@@ -190,13 +190,8 @@ class StateController extends Controller
         $em = $this->getDoctrine()->getManager();
         $responseText = '';
 
-        //checking Ajax
-        if (!$request->isXmlHttpRequest()) {
-            $responseText = 'ERROR';
-        }
-
-        //checking bjp-token
-        if ($request->request->get('token') !== $request->getSession()->get('bjp_token')) {
+        //checking Ajax and bjp-token
+        if ((!$request->isXmlHttpRequest()) OR($request->request->get('token') !== $request->getSession()->get('bjp_token'))) {
             $responseText = 'ERROR';
         }
 
@@ -231,7 +226,6 @@ class StateController extends Controller
                 $state = $em->getRepository('JasderoPassePlatBundle:State')->findOneBy(['id' => $stateId]);
                 $newWeight = 1000 - ($key * 100);
                 $currentWeight = $state->getWeight();
-
                     //comparison to work only on modified states
                     if ($newWeight !== $currentWeight){
                         $modifiedStates[] = $state->getId();

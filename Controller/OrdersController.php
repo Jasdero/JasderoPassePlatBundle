@@ -93,7 +93,6 @@ class OrdersController extends Controller
 
         foreach ($products as $product) {
             $catalog = $em->getRepository('JasderoPassePlatBundle:Catalog')->findOneBy(['id' => $product]);
-
             $newProductLine = new Product();
             $newProductLine->setState($state);
             $newProductLine->setOrders($order);
@@ -105,7 +104,6 @@ class OrdersController extends Controller
             $em->persist($newProductLine);
         }
         $em->flush();
-
 
         //setting order status
         $this->get('jasdero_passe_plat.order_status')->orderStatusAction($order);
