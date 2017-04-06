@@ -118,7 +118,7 @@
                     order.push($(this).attr('id'));
                 });
                 $.ajax({
-                    data: {request: order, token: token}, success: function () {
+                    data: {request: order, token: token}, success: function (e) {
                         location.reload(true);
                     }
                 });

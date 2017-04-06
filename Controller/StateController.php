@@ -238,11 +238,11 @@ class StateController extends Controller
             }
             $em->flush();
 
-            //updating concerned orders statuses and drive folders
+            //updating concerned orders statuses
             $orders = $em->getRepository('JasderoPassePlatBundle:Orders')->findByMultipleStates($modifiedStates);
             $this->get('jasdero_passe_plat.order_status')->multipleOrdersStatus($orders);
 
-            return new Response();
+            return new Response('Everything is ok');
         }
     }
 

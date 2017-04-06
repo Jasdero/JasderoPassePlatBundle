@@ -25,8 +25,6 @@ How-to
 
 All you have to do is to create some statuses and order them on the statuses main page. There you have 
 a table which rows you can drag'n'drop in the order you want.
-Know that through this actions all concerned orders will be updated on your platform as well as moved to the right
-folders on Google Drive.
 
 Google Drive
 ------------
@@ -37,8 +35,8 @@ Google Drive sheets are used to create orders and as a way to keep track of it.
 How-to
 ^^^^^^
 Create orders directly on the drive or directly from your platform. There is a button to scan new orders 
-from the drive in the bundle. Whenever you update your statuses or your products, corresponding sheets
-are moved to the right folders (if the folder doesn't exist it is created).
+from the drive in the bundle. On product update, both local and drive orders are updated. However when you modify the hierarchy of your statuses,
+the tasks are separated since google requests may take a long time. A page is dedicated to this action.
 
 Requirements
 ------------
