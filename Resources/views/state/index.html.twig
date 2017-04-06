@@ -63,7 +63,7 @@
                     {% endfor %}
                     </tbody>
                 </table>
-                {% if not isSynchro %}
+                {% if not isSynchro and driveActivation %}
                     <blockquote>There are some {{ container }} not up to date on the Drive. Click
                         <a href="{{ path('drive_action') }}">here</a> to go to the manager.
                     </blockquote>

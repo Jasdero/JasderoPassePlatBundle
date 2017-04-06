@@ -20,6 +20,9 @@ class OrdersFromSiteController extends Controller
      */
     public function newAction(Request $request)
     {
+        $driveActivation = $this->get('service_container')->getParameter('drive_activation');
+
+
         $form = $this->createForm(OrdersType::class);
         $form->handleRequest($request);
         $products = [];
@@ -40,11 +43,13 @@ class OrdersFromSiteController extends Controller
                 'comments' => $comments
             ))->getContent();
 
-            //retrieving order and creating file on Drive
-            $em = $this->getDoctrine()->getManager();
-            $order = $em->getRepository('JasderoPassePlatBundle:Orders')->findOneBy(['id'=>$orderId]);
-            $status = $order->getState()->getName();
-            $this->get('jasdero_passe_plat.drive_folder_as_status')->driveFolder($status, $orderId);
+            //retrieving order and creating file on Drive if activated
+            if ($driveActivation) {
+                $em = $this->getDoctrine()->getManager();
+                $order = $em->getRepository('JasderoPassePlatBundle:Orders')->findOneBy(['id'=>$orderId]);
+                $status = $order->getState()->getName();
+                $this->get('jasdero_passe_plat.drive_folder_as_status')->driveFolder($status, $orderId);
+            }
 
             //displaying the new order
             return $this->redirectToRoute('orders_show', array('id' => $orderId));

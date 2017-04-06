@@ -20,6 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class OrdersController extends Controller
 {
+
+
     /**
      * Lists all order entities. Uses pagination
      *
@@ -32,6 +34,7 @@ class OrdersController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $paginator = $this->get('knp_paginator');
+        $driveActivation = $this->get('service_container')->getParameter('drive_activation');
 
 
         $queryBuilder = $em->getRepository('JasderoPassePlatBundle:Orders')->createQueryBuilder('o');
@@ -55,6 +58,7 @@ class OrdersController extends Controller
 
         return $this->render('@JasderoPassePlat/orders/index.html.twig', array(
             'orders' => $orders,
+            'driveActivation' => $driveActivation,
         ));
     }
 
@@ -206,9 +210,11 @@ class OrdersController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $orders = $em->getRepository('JasderoPassePlatBundle:Orders')->findByStateWithAssociations($state->getId());
+        $driveActivation = $this->get('service_container')->getParameter('drive_activation');
 
         return $this->render('@JasderoPassePlat/orders/ordersFiltered.html.twig', array(
             'orders' => $orders,
+            'driveActivation' => $driveActivation,
         ));
     }
 
@@ -221,6 +227,7 @@ class OrdersController extends Controller
     public function ordersByCatalogAction(Catalog $catalog)
     {
         $em = $this->getDoctrine()->getManager();
+        $driveActivation = $this->get('service_container')->getParameter('drive_activation');
 
         //getting Orders Id
         $ordersId = $em->getRepository('JasderoPassePlatBundle:Product')->findOrderByCatalog($catalog);
@@ -232,6 +239,7 @@ class OrdersController extends Controller
 
         return $this->render('@JasderoPassePlat/orders/ordersFiltered.html.twig', array(
             'orders' => $orders,
+            'driveActivation' => $driveActivation,
         ));
     }
 
@@ -246,9 +254,11 @@ class OrdersController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $orders = $em->getRepository('JasderoPassePlatBundle:Orders')->findBy(['user'=>$user]);
+        $driveActivation = $this->get('service_container')->getParameter('drive_activation');
 
         return $this->render('@JasderoPassePlat/orders/ordersFiltered.html.twig', array(
             'orders' => $orders,
+            'driveActivation' => $driveActivation,
         ));
 
     }

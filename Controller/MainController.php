@@ -16,11 +16,13 @@ class MainController extends Controller
      */
     public function adminIndexAction()
     {
+        $driveActivation = $this->get('service_container')->getParameter('drive_activation');
         $em = $this->getDoctrine()->getManager();
         $states = $em->getRepository('JasderoPassePlatBundle:State')->findAllStatesWithAssociations();
 
 
         return $this->render('JasderoPassePlatBundle:main:dashboard.html.twig', array(
+            'driveActivation' => $driveActivation,
             'states' => $states,
         ));
 

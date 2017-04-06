@@ -81,8 +81,8 @@
                 </div>
                 {% endblock %}
                 <div class="center-align iconsBlock">
-                    <a href="{{ path('checking') }}" class="addIcon" title="create a new {{ container }}"><i
-                                class="medium material-icons">add_circle</i></a>
+                    <a href={% if driveActivation %}"{{ path('checking') }}"{% else %}"{{ path('order_site_new') }}"{% endif %}
+                    class="addIcon" title="create a new {{ container }}"><i class="medium material-icons">add_circle</i></a>
                 </div>
             </div>
         </div>

@@ -115,13 +115,17 @@ class ProductController extends Controller
         $deleteForm = $this->createDeleteForm($product);
         $editForm = $this->createForm(ProductType::class, $product);
         $editForm->handleRequest($request);
+        $driveActivation = $this->get('service_container')->getParameter('drive_activation');
+
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             //updating order status
             $this->get('jasdero_passe_plat.order_status')->orderStatusAction($product->getOrders());
-            $this->get('jasdero_passe_plat.drive_folder_as_status')->driveFolder($product->getState()->getName(), $product->getOrders()->getId());
+            if ($driveActivation) {
+                $this->get('jasdero_passe_plat.drive_folder_as_status')->driveFolder($product->getState()->getName(), $product->getOrders()->getId());
+            }
 
 
             return $this->redirectToRoute('product_show', array('id' => $product->getId()));

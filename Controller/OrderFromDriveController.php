@@ -23,9 +23,10 @@ class OrderFromDriveController extends CheckingController
     public function scanDriveFolderAction($action = false)
     {
         //retrieving folders parameters
-        $newOrdersFolder = $this->get('service_container')->getParameter('jasdero_passe_plat.new_orders_folder');
-        $folderToScan = $this->get('service_container')->getParameter('jasdero_passe_plat.folder_to_scan');
-        $errorsFolder = $this->get('service_container')->getParameter('jasdero_passe_plat.errors_folder');
+        $container = $this->get('service_container');
+        $newOrdersFolder = $container->getParameter('new_orders_folder');
+        $folderToScan = $container->getParameter('folder_to_scan');
+        $errorsFolder = $container->getParameter('errors_folder');
 
         //initializing Client
         $drive = $this->get('jasdero_passe_plat.drive_connection')->connectToDriveApi();
@@ -168,7 +169,7 @@ class OrderFromDriveController extends CheckingController
 
             return $this->render('@JasderoPassePlat/main/orderManager.html.twig', array(
                 'newOrders' => $numberOfNewOrders,
-                'errors' => $errorsOnOrders
+                'errors' => $errorsOnOrders,
             ));
         } else {
 

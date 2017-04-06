@@ -67,11 +67,14 @@ class StateController extends Controller
         $states = $em->getRepository('JasderoPassePlatBundle:State')->findAllStatesWithAssociations();
         $totalProducts = $em->getRepository('JasderoPassePlatBundle:Product')->countProducts();
         $totalOrders = $em->getRepository('JasderoPassePlatBundle:Orders')->countOrders();
+        $driveActivation = $this->get('service_container')->getParameter('drive_activation');
+
 
         return $this->render('@JasderoPassePlat/state/index.html.twig', array(
             'states' => $states,
             'totalOrders' => $totalOrders,
             'totalProducts' => $totalProducts,
+            'driveActivation' => $driveActivation,
             'token' => $this->get('session')->get('bjp_token'),
         ));
     }
