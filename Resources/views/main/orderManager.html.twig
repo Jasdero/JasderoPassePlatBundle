@@ -4,19 +4,61 @@
         <div class="row">
             <div class="col s12">
                 <h4 class="center-align">Manage {{ container }} in Google Drive</h4>
+                {{ render(controller('JasderoPassePlatBundle:OrderFromDrive:countWaitingOrders')) }}
                 <div class="center-align">
-                    <a href="{{ path('checking') }}" class="btn">Scan folder for new {{ container }}</a>
+                    <button type="button" class="btn" id="goSynchro">Scan folder for new {{ container }}</button>
 
-                    {% if newOrders is not null %}
-                        <p><strong>Number of new {{ container }} created : {{ newOrders }}</strong></p>
-                    {% endif %}
-                    {% if errors is not null %}
-                            <p>Number of {{ container }} with errors : {{ errors }}</p><br>
-                    {% endif %}
                     <h4>OR</h4>
                     <a href="{{ path('order_site_new') }}" class="btn light-green">Create a new {{ container }}</a>
+                    <p id="progress">
+                        Number of new {{ container }} : <span id="valid"></span><br>
+                        Number of {{ container }} with errors : <span id="invalid"></span><br>
+                        <span id="done">Done</span>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+{% block passe_plat_javascripts %}
+    <script>
+        $(function () {
+
+            var button = $('#goSynchro');
+            var display = $('#progress');
+            display.hide();
+            var i = 0;
+            var n = 0;
+            var valid = $("#valid");
+            var invalid = $('#invalid');
+            $('#done').hide();
+
+            //used to update on drive
+            function action(i,n) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('checking') }}",
+                    success: function (result) {
+                        if(result === 'valid'){
+                            i++;
+                            valid.html(i);
+                            action(i,n)
+                        } else if (result === 'invalid'){
+                            n++;
+                            invalid.html(n);
+                            action(i,n)
+                        } else {
+                            $('#done').show();
+                        }
+                    }
+                });
+            }
+
+            button.click(function () {
+                action(i,n);
+                display.show();
+            })
+        })
+
+    </script>
 {% endblock %}

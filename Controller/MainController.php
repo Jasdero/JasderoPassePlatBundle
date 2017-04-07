@@ -87,18 +87,12 @@ class MainController extends Controller
     }
 
     /**
-     *
-     * @Route("/drive/index/{newOrders}/{errors}", name="drive_index")
-     * @param int $errors
-     * @param int $newOrders
+     * @Route("/drive/index", name="drive_index")
      * @return Response
      */
-    public function driveIndexAction(int $errors = null, int $newOrders = null)
+    public function driveIndexAction()
     {
-        return $this->render('@JasderoPassePlat/main/orderManager.html.twig',array(
-            'errors' => $errors,
-            'newOrders' => $newOrders
-        ));
+        return $this->render('@JasderoPassePlat/main/orderManager.html.twig');
     }
 
 }
