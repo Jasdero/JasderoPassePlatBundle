@@ -224,7 +224,7 @@ class StateController extends Controller
             $modifiedStates = [];
             foreach ($newOrder as $key => $stateId) {
                 $state = $em->getRepository('JasderoPassePlatBundle:State')->findOneBy(['id' => $stateId]);
-                $newWeight = 1000 - ($key * 100);
+                $newWeight = 10000 - ($key * 100);
                 $currentWeight = $state->getWeight();
                     //comparison to work only on modified states
                     if ($newWeight !== $currentWeight){
@@ -239,7 +239,7 @@ class StateController extends Controller
             $orders = $em->getRepository('JasderoPassePlatBundle:Orders')->findByMultipleStates($modifiedStates);
             $this->get('jasdero_passe_plat.order_status')->multipleOrdersStatus($orders);
 
-            return new Response('Everything is ok');
+            return new Response();
         }
     }
 

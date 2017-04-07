@@ -14,13 +14,12 @@ class OrderFromDriveController extends CheckingController
 
     /**
      * Reading the drive folder sheets and turning it into new orders
-     * @Route("/admin/checking/{action}", name="checking")
+     * @Route("/admin/checking/", name="checking")
      * @Method({"GET", "POST"})
-     * @param bool $action
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
 
-    public function scanDriveFolderAction($action = false)
+    public function scanDriveFolderAction()
     {
         //retrieving folders parameters
         $container = $this->get('service_container');
@@ -33,10 +32,10 @@ class OrderFromDriveController extends CheckingController
 
         // vars to display when action triggered
         $numberOfNewOrders = 0;
-        $errorsOnOrders = [];
+        $errorsOnOrders = 0;
 
         // getting the files if the OAuth flow has been validated
-        if ($drive && $action) {
+        if ($drive) {
 
                 // getting new files
                 $folderId = $this->findDriveFolder($drive, $folderToScan);
@@ -65,8 +64,7 @@ class OrderFromDriveController extends CheckingController
                         } else {
                             //catching and marking invalid orders
                             $ordersIds[] = 'error';
-                            $errorsOnOrders[] = 'Something wrong with order by ' . $newOrder['user'];
-
+                            $errorsOnOrders++;
                         }
                     }
 
@@ -105,14 +103,14 @@ class OrderFromDriveController extends CheckingController
                         }
                     }
                 }
-            } elseif (!$drive && $action){
+            } elseif (!$drive){
 
             return $this->redirectToRoute('auth_checked');
         }
 
-        return $this->render('@JasderoPassePlat/main/orderManager.html.twig', array(
-            'newOrders' => $numberOfNewOrders,
+        return $this->redirectToRoute('drive_index', array(
             'errors' => $errorsOnOrders,
+            'newOrders' => $numberOfNewOrders
         ));
     }
 

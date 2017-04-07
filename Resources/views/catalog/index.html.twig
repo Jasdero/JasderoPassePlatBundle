@@ -40,7 +40,7 @@
                             </a>/{{ totalProducts }}
                         </td>
                         <td>
-                            <a href="{{ path('orders_by_catalog', {'id': catalog.id}) }}" class="btn blue-grey darken-3" title="view {{ container }}">
+                            <a href="{{ path('orders_by_catalog', {'id': catalog.id}) }}" class="btn blue-grey darken-3 tablebtn" title="view {{ container }}">
                                 {{ render(controller('JasderoPassePlatBundle:Catalog:catalogInOrders', {'catalog': catalog.id})) }}/{{ totalOrders }}</a>
                         </td>
                         <td>

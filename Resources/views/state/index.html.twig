@@ -51,7 +51,7 @@
                                     {% endif %}
                                 {% endfor %}
                                 <a href="{{ path('orders_by_status', {'id':  state.id}) }}"
-                                   class="btn blue-grey darken-3" title="view {{ container }}">{{ nbOrders }} / {{ totalOrders }}</a>
+                                   class="btn blue-grey darken-3 tablebtn" title="view {{ container }}">{{ nbOrders }} / {{ totalOrders }}</a>
                             </td>
                             <td class="{{ state.color }}">{{ state.color }}</td>
                             <td>{% if state.activated %}Yes{% else %}No{% endif %}</td>
@@ -118,7 +118,7 @@
                     order.push($(this).attr('id'));
                 });
                 $.ajax({
-                    data: {request: order, token: token}, success: function (e) {
+                    data: {request: order, token: token}, success: function () {
                         location.reload(true);
                     }
                 });

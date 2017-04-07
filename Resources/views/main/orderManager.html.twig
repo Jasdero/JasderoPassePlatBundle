@@ -5,15 +5,13 @@
             <div class="col s12">
                 <h4 class="center-align">Manage {{ container }} in Google Drive</h4>
                 <div class="center-align">
-                    <a href="{{ path('checking', {'action' : true}) }}" class="btn">Scan folder for new {{ container }}</a>
+                    <a href="{{ path('checking') }}" class="btn">Scan folder for new {{ container }}</a>
 
-                    {% if newOrders %}
+                    {% if newOrders is not null %}
                         <p><strong>Number of new {{ container }} created : {{ newOrders }}</strong></p>
                     {% endif %}
-                    {% if errors %}
-                        {% for error in errors %}
-                            <p>{{ error }}</p><br>
-                        {% endfor %}
+                    {% if errors is not null %}
+                            <p>Number of {{ container }} with errors : {{ errors }}</p><br>
                     {% endif %}
                     <h4>OR</h4>
                     <a href="{{ path('order_site_new') }}" class="btn light-green">Create a new {{ container }}</a>
