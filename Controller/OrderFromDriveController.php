@@ -30,61 +30,22 @@ class OrderFromDriveController extends CheckingController
 
         //initializing Client
         $drive = $this->get('jasdero_passe_plat.drive_connection')->connectToDriveApi();
-        // getting the files if the OAuth flow has been validated
-        $numberOfNewOrders = null;
+
+        // vars to display when action triggered
+        $numberOfNewOrders = 0;
         $errorsOnOrders = [];
-        if ($drive) {
-            if ($action) {
-                $pageToken = null;
 
-                //scanning the new orders folder to create new orders, then moving it to the In progress folder
-                //options to get the new Orders folder on the drive
-                $optParamsForFolder = array(
-                    'pageToken' => $pageToken,
-                    'q' => "name contains '$folderToScan'",
-                    'fields' => 'nextPageToken, files(id)'
-                );
+        // getting the files if the OAuth flow has been validated
+        if ($drive && $action) {
 
-                //recovering the folder
-                $results = $drive->files->listFiles($optParamsForFolder);
+                // getting new files
+                $folderId = $this->findDriveFolder($drive, $folderToScan);
+                $files = $this->getFilesFromFolder($drive, $folderId);
 
-                $folderId = '';
-                foreach ($results->getFiles() as $file) {
-                    $folderId = ($file->getId());
-                }
-
-                //options to get the Orders inside the folder
-                $optParamsForFiles = array(
-                    'pageToken' => $pageToken,
-                    'q' => "'$folderId' in parents",
-                    'fields' => 'nextPageToken, files(id)'
-                );
-
-                //recovering the files
-                $results = $drive->files->listFiles($optParamsForFiles);
-                $files = [];
-                foreach ($results->getFiles() as $file) {
-                    $files[] = ($file->getId());
-                }
                 if ($files) {
                     //downloading files in a csv format and turning it into associative arrays
-                    $csvFiles = [];
-                    foreach ($files as $file) {
-                        $response = $drive->files->export($file, 'text/csv', array(
-                            'alt' => 'media',
-                        ));
-                        $newFile = fopen('order.csv', 'w+');
-                        fwrite($newFile, $response->getBody()->getContents());
-                        fclose($newFile);
+                    $csvFiles = $this->downloadAndConvert($drive, $files);
 
-                        //method  to turn csv into arrays
-                        $csv = array_map('str_getcsv', file('order.csv'));
-                        array_walk($csv, function (&$a) use ($csv) {
-                            $a = array_combine($csv[0], $a);
-                        });
-                        array_shift($csv);
-                        $csvFiles[] = $csv;
-                    }
                     //formatting csv files to proper order format
                     $newOrders = $this->csvToOrders($csvFiles);
 
@@ -110,32 +71,11 @@ class OrderFromDriveController extends CheckingController
                     }
 
                     //moving to 'in progress folder' or 'errors' folder
+                    // getting the In Progress folder on the drive
+                    $inProgressFolderId = $this->findDriveFolder($drive, $newOrdersFolder);
 
-                    //options to get the In Progress folder on the drive
-                    $optParamsForFolder = array(
-                        'pageToken' => $pageToken,
-                        'q' => "name contains '$newOrdersFolder'",
-                        'fields' => 'nextPageToken, files(id)'
-                    );
-                    //recovering the folder id
-                    $results = $drive->files->listFiles($optParamsForFolder);
-                    $inProgressFolderId = '';
-                    foreach ($results->getFiles() as $file) {
-                        $inProgressFolderId = ($file->getId());
-                    }
-
-                    //options to get the Errors folder on the drive
-                    $optParamsForFolder = array(
-                        'pageToken' => $pageToken,
-                        'q' => "name contains '$errorsFolder'",
-                        'fields' => 'nextPageToken, files(id)'
-                    );
-                    //recovering the folder id
-                    $results = $drive->files->listFiles($optParamsForFolder);
-                    $errorsFolderId = '';
-                    foreach ($results->getFiles() as $file) {
-                        $errorsFolderId = ($file->getId());
-                    }
+                    // getting the Errors folder on the drive
+                    $errorsFolderId = $this->findDriveFolder($drive, $errorsFolder);
 
                     //moving files
                     foreach ($files as $key => $fileId) {
@@ -165,18 +105,93 @@ class OrderFromDriveController extends CheckingController
                         }
                     }
                 }
-            }
+            } elseif (!$drive && $action){
 
-            return $this->render('@JasderoPassePlat/main/orderManager.html.twig', array(
-                'newOrders' => $numberOfNewOrders,
-                'errors' => $errorsOnOrders,
-            ));
-        } else {
-
-            //if not authenticated restart for token
             return $this->redirectToRoute('auth_checked');
-
         }
+
+        return $this->render('@JasderoPassePlat/main/orderManager.html.twig', array(
+            'newOrders' => $numberOfNewOrders,
+            'errors' => $errorsOnOrders,
+        ));
+    }
+
+    /**
+     * @param $drive
+     * @param $folder
+     * @return string
+     */
+    private function findDriveFolder($drive, $folder)
+    {
+        $pageToken = null;
+
+        $optParamsForFolder = array(
+            'pageToken' => $pageToken,
+            'q' => "name contains '$folder'",
+            'fields' => 'nextPageToken, files(id)'
+        );
+        //recovering the folder
+        $results = $drive->files->listFiles($optParamsForFolder);
+
+        $folderId = '';
+        foreach ($results->getFiles() as $file) {
+            $folderId = ($file->getId());
+        }
+        return $folderId;
+    }
+
+    /**
+     * @param $drive
+     * @param $folder
+     * @return array
+     */
+    private function getFilesFromFolder($drive, $folder)
+    {
+        $pageToken = null;
+
+        //options to get the Orders inside the folder
+        $optParamsForFiles = array(
+            'pageToken' => $pageToken,
+            'q' => "'$folder' in parents",
+            'fields' => 'nextPageToken, files(id)'
+        );
+
+        //recovering the files
+        $results = $drive->files->listFiles($optParamsForFiles);
+        $files = [];
+        foreach ($results->getFiles() as $file) {
+            $files[] = ($file->getId());
+        }
+
+        return $files;
+    }
+
+    /**
+     * @param $drive
+     * @param array $files
+     * @return array
+     */
+    private function downloadAndConvert($drive, array $files)
+    {
+        $csvFiles = [];
+        foreach ($files as $file) {
+            $response = $drive->files->export($file, 'text/csv', array(
+                'alt' => 'media',
+            ));
+            $newFile = fopen('order.csv', 'w+');
+            fwrite($newFile, $response->getBody()->getContents());
+            fclose($newFile);
+
+            //method  to turn csv into arrays
+            $csv = array_map('str_getcsv', file('order.csv'));
+            array_walk($csv, function (&$a) use ($csv) {
+                $a = array_combine($csv[0], $a);
+            });
+            array_shift($csv);
+            $csvFiles[] = $csv;
+        }
+
+        return $csvFiles;
     }
 
 

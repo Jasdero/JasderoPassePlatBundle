@@ -191,7 +191,7 @@ class StateController extends Controller
         $responseText = '';
 
         //checking Ajax and bjp-token
-        if ((!$request->isXmlHttpRequest()) || ($request->request->get('token') !== $request->getSession()->get('bjp_token'))) {
+        if ((!$request->isXmlHttpRequest()) OR($request->request->get('token') !== $request->getSession()->get('bjp_token'))) {
             $responseText = 'ERROR';
         }
 
