@@ -93,7 +93,7 @@ class DriveConnection
                 fwrite($refreshToken, json_encode($jsonToken));
                 fclose($refreshToken);
             }
-            $redirect_uri = 'http://' . $host . '/app_dev.php/admin/checking';
+            $redirect_uri = 'http://' . $host . '/app_dev.php/admin/drive/index';
             return new RedirectResponse(filter_var($redirect_uri, FILTER_SANITIZE_URL));
         }
     }

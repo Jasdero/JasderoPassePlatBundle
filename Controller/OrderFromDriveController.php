@@ -120,16 +120,20 @@ class OrderFromDriveController extends CheckingController
         $container = $this->get('service_container');
         $folderToScan = $container->getParameter('folder_to_scan');
         $drive = $this->get('jasdero_passe_plat.drive_connection')->connectToDriveApi();
-        $count = 'Not connected to drive';
+        $count = 0;
+        $connection = false;
 
         if ($drive) {
             $folderId = $this->findDriveFolder($drive, $folderToScan);
             $files = $this->getFilesFromFolder($drive, $folderId);
 
             $count = count($files);
+        } else {
+
         }
         return $this->render('@JasderoPassePlat/main/ordersWaiting.html.twig', array(
-            'count' => $count
+            'count' => $count,
+            'connection' => $connection
         ));
 
     }

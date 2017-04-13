@@ -47,6 +47,19 @@ Requirements
 
 Don't forget to put the scripts in your ``base.html.twig`` as it is extended by the bundle and make to have a ``{% block body %}`` inside.
 
+Example :
+ .. code-block:: html
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script
+                src="http://code.jquery.com/jquery-3.1.1.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+        <script src="{{ asset('js/RowSorter.js') }}"></script>
+        <script src="{{ asset('js/jquery.tablesorter.min.js') }}"></script>
+
 
 Configuration
 -------------
@@ -218,7 +231,7 @@ Step 1 : Google configuration
 Create a Google Account if you don't have one yet.
 Then you `activate the Drive API`_  for your application.
 After that you need to `create credentials`_
-and configure the redirect URI. By defaults it is the "/checked" and "/admin/checking" routes in the bundle (for example during dev it is "http://localhost:8000/app_dev.php/admin/checking"
+and configure the redirect URI. By defaults it is the "/checked" and "/admin/checking" routes in the bundle (for example during dev it is "http://localhost:8000/app_dev.php/admin/drive/index"
  AND "http://localhost:8000/app_dev.php/checked").
 Once you have downloaded your credentials, put it in the path you declared as ``auth_config``.
 

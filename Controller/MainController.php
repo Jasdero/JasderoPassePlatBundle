@@ -87,7 +87,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/drive/index", name="drive_index")
+     * @Route("/admin/drive/index", name="drive_index")
      * @return Response
      */
     public function driveIndexAction()
