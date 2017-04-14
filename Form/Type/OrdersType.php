@@ -28,7 +28,25 @@ class OrdersType extends AbstractType
                         ->where('u.activated = true');
                 },
                 'choice_label' => function (Catalog $product) {
-                    return $product->getDescription() . ' Pre-tax price : ' . $product->getPretaxPrice() . '€';
+                    $description = $product->getDescription();
+                    $branch = $product->getBranch();
+                    $category = $product->getCategory();
+                    $subCategory = $product->getSubCategory();
+                    $metas = [];
+                    $show = "";
+                    if($branch){
+                        array_push($metas, $branch->getName());
+                    }
+                    if($category){
+                        array_push($metas,$category->getName());
+                    }
+                    if($subCategory){
+                        array_push($metas, $subCategory->getName());
+                    }
+                    foreach ($metas as $meta) {
+                        $show .= $meta."/ ";
+                    }
+                    return $description." Category : ".$show;
                 },
                 'expanded' => true,
                 'multiple' => true,
@@ -40,9 +58,11 @@ class OrdersType extends AbstractType
                 'label' => 'Owner',
                 'mapped' => 'false'
             ))
-            ->add('comments', TextareaType::class, array(
+            ->add('comment',CommentType::class, array(
                 'required' => false,
-            ));
+                'label' => false
+            ))
+            ;
     }
 
     /**

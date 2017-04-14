@@ -11,6 +11,9 @@
                         <th>Id</th>
                         <th>{{ container }}</th>
                         <th>Pretax-price</th>
+                        <th>Branch</th>
+                        <th>Category</th>
+                        <th>Subcategory</th>
                         <th>Customer</th>
                         <th>Vat rate</th>
                         <th>Status</th>
@@ -31,6 +34,21 @@
                                 </a>
                             </td>
                             <td>{{ product.pretaxPrice }}</td>
+                            <td>
+                                {% if product.catalog.branch %}
+                                    {{ product.catalog.branch.name }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if product.catalog.category %}
+                                    {{ product.catalog.category.name }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if product.catalog.subcategory %}
+                                    {{ product.catalog.subcategory.name }}
+                                {% endif %}
+                            </td>
                             <td><a href="{{ path('user_detail', {id : product.orders.user.id}) }}">
                                 {{ product.orders.user.username }}
                                 </a>

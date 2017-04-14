@@ -132,8 +132,8 @@ class DriveFolderAsStatus
                     $orderAsCsv[0][2] = 'comments';
                     $orderAsCsv[$key + 1][] = $order->getOrders()->getUser()->getEmail();
                     $orderAsCsv[$key + 1][] = $order->getCatalog()->getId();
-                    if($order->getOrders()->getComments()){
-                        $orderAsCsv[$key + 1][] = $order->getOrders()->getComments();
+                    if($order->getOrders()->getComment()){
+                        $orderAsCsv[$key + 1][] = $order->getOrders()->getComment();
                     } else {
                         $orderAsCsv[$key + 1][] = 'no comments';
                     }

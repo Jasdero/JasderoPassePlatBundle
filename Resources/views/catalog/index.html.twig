@@ -10,8 +10,11 @@
                     <th>Id</th>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>Pretaxprice</th>
+                    <th>Pretax-price</th>
                     <th>Vat rate</th>
+                    <th>Branch</th>
+                    <th>Category</th>
+                    <th>Subcategory</th>
                     <th>Activated</th>
                     <th>{{ content }}</th>
                     <th>Nb of {{ container }}</th>
@@ -28,6 +31,21 @@
                         <td>{{ catalog.description }}</td>
                         <td>{{ catalog.pretaxPrice }}</td>
                         <td>{% if catalog.vat %}{{ catalog.vat.rate }}{% endif %}</td>
+                        <td>
+                            {% if catalog.branch %}
+                                {{ catalog.branch.name }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if catalog.category %}
+                                {{ catalog.category.name }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if catalog.subcategory %}
+                                {{ catalog.subcategory.name }}
+                            {% endif %}
+                        </td>
                         <td>{% if catalog.activated %}Yes{% else %}No{% endif %}</td>
                         <td class="center-align">
                             {# counting  products with this catalog entry#}

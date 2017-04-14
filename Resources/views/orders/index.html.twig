@@ -11,6 +11,9 @@
                         <th>{{ container }} Id</th>
                         <th>{{ content }} Id</th>
                         <th>{{ content }}</th>
+                        <th>Branch</th>
+                        <th>Category</th>
+                        <th>Subcategory</th>
                         <th>Customer</th>
                         <th>Created on</th>
                         <th>Last update</th>
@@ -41,6 +44,21 @@
                                 </td>
                                 <td>
                                     {{ product.catalog.name }}
+                                </td>
+                                <td>
+                                    {% if product.catalog.branch %}
+                                        {{ product.catalog.branch.name }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if product.catalog.category %}
+                                        {{ product.catalog.category.name }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if product.catalog.subcategory %}
+                                        {{ product.catalog.subcategory.name }}
+                                    {% endif %}
                                 </td>
                                 {% if puser != order.user.username %}
                                     {% set puser = order.user.username %}

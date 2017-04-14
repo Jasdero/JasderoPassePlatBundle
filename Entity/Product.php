@@ -62,7 +62,12 @@ class Product
      */
     private $orders;
 
-
+    /**
+     * @var Comment
+     * @ORM\OneToOne(targetEntity="Comment", inversedBy="product", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="comment_id", referencedColumnName="id", nullable=true)
+     */
+    private $comment;
 
     /**
      * Get id
@@ -192,5 +197,29 @@ class Product
     public function getOrders()
     {
         return $this->orders;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param \Jasdero\PassePlatBundle\Entity\Comment $comment
+     *
+     * @return Product
+     */
+    public function setComment(\Jasdero\PassePlatBundle\Entity\Comment $comment = null)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return \Jasdero\PassePlatBundle\Entity\Comment
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 }

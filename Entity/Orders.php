@@ -39,11 +39,11 @@ class Orders
     private $dateCreation;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="comments", type="text", nullable=true)
+     * @var Comment
+     * @ORM\OneToOne(targetEntity="Comment", inversedBy="order", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="comment_id", referencedColumnName="id", nullable=true)
      */
-    private $comments;
+    private $comment;
 
     /**
      * @var boolean
@@ -261,29 +261,6 @@ class Orders
         return $this->products;
     }
 
-    /**
-     * Set comments
-     *
-     * @param string $comments
-     *
-     * @return Orders
-     */
-    public function setComments($comments)
-    {
-        $this->comments = $comments;
-
-        return $this;
-    }
-
-    /**
-     * Get comments
-     *
-     * @return string
-     */
-    public function getComments()
-    {
-        return $this->comments;
-    }
 
     /**
      * Set driveSynchro
@@ -307,5 +284,29 @@ class Orders
     public function getDriveSynchro()
     {
         return $this->driveSynchro;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param \Jasdero\PassePlatBundle\Entity\Comment $comment
+     *
+     * @return Orders
+     */
+    public function setComment(\Jasdero\PassePlatBundle\Entity\Comment $comment = null)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return \Jasdero\PassePlatBundle\Entity\Comment
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 }

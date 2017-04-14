@@ -3,20 +3,11 @@
 {% block passe_plat_content %}
     <div class="container">
         <div class="row">
-            <h5 class="center-align">{{ content }} edit</h5>
+            <h5 class="center-align">Category edit</h5>
             {{ form_start(edit_form) }}
-            <div class="col s6">
-                {{ form_row(edit_form.pretaxPrice) }}
-            </div>
-            <div class="col s6">
-                {{ form_row(edit_form.vatRate) }}
-            </div>
-            {{ form_row(edit_form.state) }}
-            <div class="input-field">
-                {{ form_row(edit_form.comment) }}
-            </div>
-            <div class="col s12 center-align iconsBlock">
-                <a href="{{ path('product_index') }}" title="back">
+            {{ form_widget(edit_form) }}
+            <div class="iconsBlock col s12 center-align">
+                <a href="{{ path('category_index') }}" title="back">
                     <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
                 </a>
                 <button type="submit" class="btn-floating grey darken-3" title="confirm"><i class="material-icons">done</i></button>
@@ -27,4 +18,5 @@
             </div>
         </div>
     </div>
+
 {% endblock %}

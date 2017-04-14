@@ -2,6 +2,7 @@
 
 namespace Jasdero\PassePlatBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,7 +39,7 @@ class Catalog
     /**
      * @var float
      *
-     * @ORM\Column(name="pretax_price", type="float", precision=10, scale=0, nullable=false)
+     * @ORM\Column(name="pretax_price", type="float", precision=10, scale=0, nullable=true)
      */
     private $pretaxPrice;
 
@@ -64,7 +65,34 @@ class Catalog
      */
     private $vat;
 
+    /**
+     * @var Category
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="catalogs")
+     * @ORM\JoinColumn(name="branch_id", referencedColumnName="id", nullable=true)
+     */
+    private $branch;
 
+    /**
+     * @var Category
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="catalogs2")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=true)
+     */
+    private $category;
+
+    /**
+     * @var Category
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="catalogs3")
+     * @ORM\JoinColumn(name="subcategory_id", referencedColumnName="id", nullable=true)
+     */
+    private $subCategory;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -131,7 +159,7 @@ class Catalog
      *
      * @return Catalog
      */
-    public function setPretaxPrice($pretaxPrice)
+    public function setPretaxPrice($pretaxPrice = null)
     {
         $this->pretaxPrice = $pretaxPrice;
 
@@ -195,13 +223,7 @@ class Catalog
     {
         return $this->vat;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
     /**
      * Add product
@@ -235,5 +257,77 @@ class Catalog
     public function getProducts()
     {
         return $this->products;
+    }
+
+    /**
+     * Set branch
+     *
+     * @param \Jasdero\PassePlatBundle\Entity\Category $branch
+     *
+     * @return Catalog
+     */
+    public function setBranch(\Jasdero\PassePlatBundle\Entity\Category $branch = null)
+    {
+        $this->branch = $branch;
+
+        return $this;
+    }
+
+    /**
+     * Get branch
+     *
+     * @return \Jasdero\PassePlatBundle\Entity\Category
+     */
+    public function getBranch()
+    {
+        return $this->branch;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Jasdero\PassePlatBundle\Entity\Category $category
+     *
+     * @return Catalog
+     */
+    public function setCategory(\Jasdero\PassePlatBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Jasdero\PassePlatBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set subCategory
+     *
+     * @param \Jasdero\PassePlatBundle\Entity\Category $subCategory
+     *
+     * @return Catalog
+     */
+    public function setSubCategory(\Jasdero\PassePlatBundle\Entity\Category $subCategory = null)
+    {
+        $this->subCategory = $subCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get subCategory
+     *
+     * @return \Jasdero\PassePlatBundle\Entity\Category
+     */
+    public function getSubCategory()
+    {
+        return $this->subCategory;
     }
 }

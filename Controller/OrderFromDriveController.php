@@ -126,7 +126,7 @@ class OrderFromDriveController extends CheckingController
         if ($drive) {
             $folderId = $this->findDriveFolder($drive, $folderToScan);
             $files = $this->getFilesFromFolder($drive, $folderId);
-
+            $connection = true;
             $count = count($files);
         } else {
 

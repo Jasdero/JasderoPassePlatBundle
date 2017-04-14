@@ -1,0 +1,42 @@
+{% extends '@JasderoPassePlat/main/adminLayout.html.twig' %}
+
+{% block passe_plat_content %}
+    <div class="container">
+        <div class="row">
+            <h5 class="center-align">Categories list</h5>
+            <table class="tablesorter bordered centered" id="categoriesTable">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td><a href="{{ path('category_show', {'id': category.id}) }}" class="btn grey darken-3" title="view detail">
+                            {{ category.id }}</a>
+                        </td>
+                        <td>{{ category.name }}</td>
+                        <td>
+                            <a href="{{ path('category_edit', { 'id': category.id }) }}" class="btn grey darken-3" title="edit"><i class="material-icons">edit</i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="iconsBlock center-align">
+                <a href="{{ path('category_new') }}" class="addIcon" title="create a new category"><i class="medium material-icons">add_circle</i></a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block passe_plat_javascripts %}
+    <script>
+        $(function () {
+            $("#categoriesTable").tablesorter();
+        })
+    </script>
+{% endblock %}

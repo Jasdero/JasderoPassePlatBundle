@@ -39,6 +39,20 @@
                 </tbody>
             </table>
 
+            <div class="row">
+                <div class="col s12">
+                    <p><strong>Comment</strong></p>
+                    <hr>
+                    {% if product.comment %}<p>{{ product.comment.content }}</p>
+                        <div class="right-align">
+                            <button type="button" id="delete_comment" class="btn-floating grey darken-3" title="delete this comment">
+                                <i class="material-icons">close</i>
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
             <div class="iconsBlock col s12 center-align">
                 <a href="{{ path('product_index') }}" title="back to the list of {{ content }}">
                     <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
@@ -55,4 +69,29 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block passe_plat_javascripts %}
+    {% if product.comment %}
+        <script>
+            $(function () {
+                var button = $("#delete_comment");
+
+                function deleteComment(){
+                    $.ajax({
+                        type : "DELETE",
+                        url : "{{ path('comment_delete_from_product', { 'id' : product.comment.id }) }}",
+                        success: function () {
+                            location.reload(true);
+                        }
+                    })
+                }
+                button.click(function () {
+                    var confirmation = confirm("Are you sure ?");
+                    if (confirmation === true){
+                        deleteComment();
+                    }
+                });
+            })
+        </script>
+    {% endif %}
 {% endblock %}

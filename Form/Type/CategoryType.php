@@ -3,19 +3,18 @@
 namespace Jasdero\PassePlatBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VatType extends AbstractType
+class CategoryType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('rate', NumberType::class)
-        ;
+        $builder->add('name', TextType::class);
     }
     
     /**
@@ -24,7 +23,7 @@ class VatType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Jasdero\PassePlatBundle\Entity\Vat'
+            'data_class' => 'Jasdero\PassePlatBundle\Entity\Category'
         ));
     }
 
@@ -33,7 +32,7 @@ class VatType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'jasderopasseplatbundle_vat';
+        return 'jasdero_passeplatbundle_category';
     }
 
 

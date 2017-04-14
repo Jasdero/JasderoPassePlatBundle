@@ -5,15 +5,45 @@
         <div class="row">
             <h5 class="center-align">Catalog edit</h5>
             {{ form_start(edit_form) }}
-            {{ form_widget(edit_form) }}
+            <div class="input-field">
+                {{ form_row(edit_form.name) }}
+            </div>
+            <div class="row">
+                <div class="col s12 m4">
+                    {{ form_row(edit_form.branch) }}
+                </div>
+                <div class="col s12 m4">
+                    {{ form_row(edit_form.category) }}
+                </div>
+                <div class="col s12 m4">
+                    {{ form_row(edit_form.subCategory) }}
+                </div>
+            </div>
+            <div class="input-field">
+                {{ form_row(edit_form.description) }}
+            </div>
+            <div class="row">
+                <div class="col s6 m4">
+                    {{ form_row(edit_form.pretaxPrice) }}
+                </div>
+                <div class="col s6 m4">
+                    {{ form_row(edit_form.vat) }}
+                </div>
+                <div class="col s12 m4">
+                    {{ form_row(edit_form.activated, { 'label': 'Activation' }) }}
+                </div>
+            </div>
             <div class="iconsBlock col s12 center-align">
                 <a href="{{ path('catalog_index') }}" title="back">
-                    <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
+                    <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i>
+                    </button>
                 </a>
-                <button type="submit" class="btn-floating grey darken-3" title="confirm"><i class="material-icons">done</i></button>
+                <button type="submit" class="btn-floating grey darken-3" title="confirm"><i
+                            class="material-icons">done</i></button>
                 {{ form_end(edit_form) }}
                 {{ form_start(delete_form) }}
-                <button type="submit" title="delete" class="btn-floating grey darken-3"><i class="material-icons">delete_forever</i></button>
+                <button type="submit" title="delete" class="btn-floating grey darken-3"><i class="material-icons">delete_forever</i>
+                </button>
                 {{ form_end(delete_form) }}
             </div>
         </div>

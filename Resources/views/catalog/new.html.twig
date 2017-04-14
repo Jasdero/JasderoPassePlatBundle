@@ -5,12 +5,30 @@
         <div class="row">
             <h5 class="center-align">Catalog creation</h5>
             {{ form_start(form) }}
-            {{ form_widget(form) }}
+            <div class="input-field">
             {{ form_row(form.name) }}
+            </div>
+            <div class="col s12 m4">
+                {{ form_row(form.branch) }}
+            </div>
+            <div class="col s12 m4">
+                {{ form_row(form.category) }}
+            </div>
+            <div class="col s12 m4">
+                {{ form_row(form.subCategory) }}
+            </div>
+            <div class="input-field">
             {{ form_row(form.description) }}
-            {{ form_row(form.pretaxPrice) }}
-            {{ form_row(form.activated) }}
-            {{ form_row(form.vat) }}
+            </div>
+            <div class="col s6 m4">
+                {{ form_row(form.pretaxPrice) }}
+            </div>
+            <div class="col s6 m4">
+                {{ form_row(form.vat) }}
+            </div>
+            <div class="col s12 m4">
+                {{ form_row(form.activated) }}
+            </div>
             <div class="iconsBlock col s12 center-align">
                 <a href="{{ path('catalog_index') }}" title="back">
                     <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>

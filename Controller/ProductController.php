@@ -31,14 +31,16 @@ class ProductController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $paginator = $this->get('knp_paginator');
-        $queryBuilder = $em->getRepository('JasderoPassePlatBundle:Product')->createQueryBuilder('c');
+        $queryBuilder = $em->getRepository('JasderoPassePlatBundle:Product')->createQueryBuilder('p');
         $queryBuilder
-            ->leftJoin('c.catalog', 'q')
-            ->addSelect('q')
-            ->leftJoin('c.orders', 'o')
+            ->leftJoin('p.catalog', 'c')
+            ->addSelect('c')
+            ->leftJoin('p.orders', 'o')
             ->addSelect('o')
-            ->leftJoin('c.state', 's')
-            ->addSelect('s');
+            ->leftJoin('p.state', 's')
+            ->addSelect('s')
+            ->leftJoin('c.category', 'k')
+            ->addSelect('k');
         $query = $queryBuilder->getQuery();
 
         $products = $paginator->paginate(

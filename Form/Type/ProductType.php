@@ -33,6 +33,10 @@ class ProductType extends AbstractType
                 'expanded'=>false,
                 'multiple'=>false,
             ))
+            ->add('comment',CommentType::class, array(
+                'required' => false,
+                'label' => false
+            ))
         ;
     }
     
