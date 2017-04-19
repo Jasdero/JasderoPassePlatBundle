@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col s12">
                 <h5 class="center-align">{{ container }} list</h5>
-                <table class="bordered tablesorter">
+                <table class="bordered tablesorter" id="tableOrders">
                     <thead>
                     <tr>
                         <th>{{ container }} Id</th>
@@ -31,7 +31,12 @@
                             <tr>
                                 {% if pid != order.id %}
                                     {% set pid = order.id %}
-                                    <td><a href="{{ path('orders_show', { 'id': order.id }) }}" title="view {{ container }} detail"
+                                    <td><a href="{{ path('orders_show', { 'id': order.id }) }}"
+                                        {% if order.comment %}
+                                            title="{{ order.comment.content }}"
+                                        {% else %}
+                                            title="view {{ container }} detail"
+                                        {% endif %}
                                            class="{{ order.state.color }} white-text linkAsBlock center-align">{{ order.id }}</a>
                                     </td>
                                 {% else %}
@@ -40,7 +45,12 @@
                                 {% endif %}
                                 <td>
                                     <a href="{{ path('product_show', {'id':product.id}) }}"
-                                       title="view {{ content }} detail" class="{{ product.state.color }}-text linkAsBlock"><i class="material-icons left">fiber_manual_record</i>{{ product.id }}</a>
+                                       {% if product.comment %}
+                                           title="{{ product.comment.content }}"
+                                       {% else %}
+                                           title="view {{ content }} detail"
+                                       {% endif %}
+                                       class="{{ product.state.color }}-text linkAsBlock"><i class="material-icons left">fiber_manual_record</i>{{ product.id }}</a>
                                 </td>
                                 <td>
                                     {{ product.catalog.name }}
@@ -105,4 +115,11 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block passe_plat_javascripts %}
+    <script>
+        $(function () {
+            $("#tableOrders").tablesorter();
+        })
+    </script>
 {% endblock %}

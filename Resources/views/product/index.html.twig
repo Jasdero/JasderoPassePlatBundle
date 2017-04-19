@@ -17,19 +17,28 @@
                         <th>Customer</th>
                         <th>Vat rate</th>
                         <th>Status</th>
-                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for product in products %}
                         <tr>
                             <td>
-                                <a href="{{ path('product_show', { 'id': product.id }) }}" class="{{ product.state.color }}-text linkAsBlock" title="view detail">
+                                <a href="{{ path('product_show', { 'id': product.id }) }}" class="{{ product.state.color }}-text linkAsBlock"
+                                    {% if product.comment %}
+                                        title="{{ product.comment.content }}">
+                                    {% else %}
+                                        title="view detail">
+                                    {% endif %}
                                     <i class="material-icons left">fiber_manual_record</i>{{ product.id }}
                                 </a>
                             </td>
                             <td class="center-align">
-                                <a href="{{ path('orders_show', {'id': product.orders.id}) }}" class="{{ product.orders.state.color }}-text linkAsBlock" title="view {{ container }}">
+                                <a href="{{ path('orders_show', {'id': product.orders.id}) }}" class="{{ product.orders.state.color }}-text linkAsBlock"
+                                    {% if product.orders.comment %}
+                                        title="{{ product.orders.comment.content }}">
+                                    {% else %}
+                                        title="view {{ container }}">
+                                    {% endif %}
                                     <i class="material-icons left">stop</i>{{ product.orders.id }}
                                 </a>
                             </td>
@@ -49,15 +58,17 @@
                                     {{ product.catalog.subcategory.name }}
                                 {% endif %}
                             </td>
-                            <td><a href="{{ path('user_detail', {id : product.orders.user.id}) }}">
-                                {{ product.orders.user.username }}
+                            <td>
+                                <a href="{{ path('user_detail', {id : product.orders.user.id}) }}">
+                                    {{ product.orders.user.username }}
                                 </a>
                             </td>
-                            <td>{% if product.vatRate %}{{ product.vatRate }}{% endif %}</td>
-                            <td>{{ product.state.name }}</td>
-                            <td class="center-align">
-                                <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn grey darken-3" title="edit"><i class="material-icons">edit</i></a>
+                            <td>
+                                {% if product.vatRate %}
+                                    {{ product.vatRate }}
+                                {% endif %}
                             </td>
+                            <td>{{ product.state.name }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

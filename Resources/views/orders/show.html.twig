@@ -44,7 +44,12 @@
                 {% for product in order.products %}
                     <tr>
                         <td>
-                            <a href="{{ path('product_show', {id : product.id}) }}" class="btn-floating center-align blue-grey darken-1" title="view {{ content }}">
+                            <a href="{{ path('product_show', {id : product.id}) }}" class="btn-floating center-align blue-grey darken-1"
+                                {% if product.comment %}
+                                    title="{{ product.comment.content }}">
+                                {% else %}
+                                    title="view {{ content }}">
+                                {% endif %}
                                 {{ product.id }}
                             </a>
                         </td>
@@ -70,7 +75,7 @@
                         {% endif %}
                         <td>
                             <a href="{{ path('product_edit', { 'id': product.id }) }}" class="btn grey darken-3" title="edit this {{ content }}">
-                                <i class="material-icons">edit</i>
+                                    <i class="material-icons">edit</i>
                             </a>
                         </td>
                     </tr>
