@@ -3,7 +3,7 @@ Passe-Plat Bundle
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/5c2963ad-8776-4d88-9efd-1b94026e7f10/mini.png)](https://insight.sensiolabs.com/projects/5c2963ad-8776-4d88-9efd-1b94026e7f10)
 
-The Passe-Plat Bundle is an order management system for Symfony 3 based on status oriented management 
+The Passe-Plat Bundle is an order (or anything you want) management system for Symfony 3 based on status oriented management 
 rules and coupled with Google Drive (optional).
 
 Features :
@@ -12,25 +12,24 @@ Features :
   * automatic import and creation of orders from/to Google Drive
   * self-creating and organizing orders on Google Drive 
   
-  
-  
 ### Status oriented management
 
 #### Principle
 The Passe-Plat bundle is built on the principle that an order status (i.e. on hold, ready etc...)
 depends on the statuses of the products it's made of. The product with the most important status will define its order status.
+Since it can be used in many ways, orders are considers as "containers" and products as its "content".
 #### Use
 All you have to do is to create some statuses and order them on the statuses main page. There you have 
-a table which rows you can drag'n'drop in the order you want.
+a table which rows you can sort to establish your own ruling hierarchy.
 
 
 ### Google Drive (optional)
 #### Principle
-Google Drive sheets are used to create orders and as a way to keep track of it.
+Google Drive sheets are used to create containers and as a way to keep track of it.
 
 #### Use
-Create orders directly on the drive or directly from your platform. There is a button to scan new orders 
-from the drive in the bundle. On product update, both local and drive orders are updated. However when you modify the hierarchy of your statuses,
+Create containers directly on the drive or directly from your platform. There is a button to scan new containers 
+from the drive in the bundle. On content update, both local and drive containers are updated. However when you modify the hierarchy of your statuses,
 the tasks are separated since google requests may take a long time. A page is dedicated to this action.
 ### Requirements
 * [Jquery](http://code.jquery.com/)
@@ -188,7 +187,7 @@ Then activate it in your base layout :
 
 ```
 
-If you don't need Google Drive, then you're ready to start. Go to `admin/dashboard` and start with creating some statuses and catalog entries.
+If you don't need Google Drive, then you're ready to start. Go to the last section.
 
 #### Google Drive
 [Reference](https://developers.google.com/api-client-library/php/auth/web-app)
@@ -198,7 +197,7 @@ If you don't need Google Drive, then you're ready to start. Go to `admin/dashboa
 Create a Google Account if you don't have one yet.
 Then you [activate the Drive API](https://console.developers.google.com/apis/library) for your application.
 After that you need to [create credentials](https://console.developers.google.com/projectselector/apis/credentials)
-and configure the redirect URI. By defaults it is the "/checked" and "/admin/checking" routes in the bundle (for example during dev it is "http://localhost:8000/app_dev.php/admin/drive/index" 
+and configure the redirect URI. By defaults it is the "/admin/drive/index" and "/checked" routes in the bundle (for example during dev it is "http://localhost:8000/app_dev.php/admin/drive/index" 
 AND "http://localhost:8000/app_dev.php/checked").
 Once you have downloaded your credentials, put it in the path you declared as `auth_config`.
 
@@ -206,14 +205,15 @@ Once you have downloaded your credentials, put it in the path you declared as `a
 
 Go to your Google Drive and create the root folder for your application.
 Inside create 3 more folders : one that will be scanned by your app (the `folder_to_scan`), another one for the newly registered
-orders (`new_orders_folder`) and lastly one for invalid orders (`errors_folder`).
+containers (`new_orders_folder`) and lastly one for invalid containers (`errors_folder`).
 Just be sure that you enter the same values as in your `config.yml`.
 
-##### Step 3 : Order format
+##### Step 3 : Container format
 
 On the first row as column titles : user | products and eventually comments.
 On following rows : the user mail | catalog ID and eventually comments.
 The user needs to be registered in your platform so that the order is valid.
+You MUST keep this format and titles for the scan to work.
 
 Example :
 
@@ -226,3 +226,24 @@ mail@mail.com | 1 | something
 ##### Recommendations
 Be aware that if you change anything in your Google Drive Api configuration you MUST download credentials again as those will be
 different.
+
+### Using the bundle
+#### Settings : this is where you start
+
+All these features are under the "Settings" menu.
+
+Start with statuses : click on "Settings" and "Statuses". Click on the cross to create your first status ! Fill in the blanks and add your own management rules. When you have some, go back
+to the statuses index and order them from the most important to the least. Don't forget to valid.
+
+Secondly :  categories. It is optional, but you should create some categories so that your catalog entries will be organized. 
+To do so, follow the same procedure under the "Categories" entry of the "Settings" menu.
+
+Then, you can then add some VAT rates if you need. These are optional but should be useful for business needs.
+
+Finally, go to the "Catalog" entry. You can now create your entries with all necessary data.
+ 
+#### Operational 
+
+When everything is done, you are ready to create your first containers, with contents provided from the catalog, locally or on the Drive, or both. 
+
+You will notice that you can add comments on containers and content.

@@ -26,7 +26,7 @@ class CatalogType extends AbstractType
                 'required' => false,
             ))
             ->add('activated', ChoiceType::class, array(
-                'label' => false,
+                'label' => "Activation",
                 'choices' =>
                     ['Enabled' => 1,
                         'Disabled' => 0],
