@@ -13,7 +13,7 @@ class OrdersFromSiteController extends Controller
     /**
      * Creates a new order entity from the site
      *
-     * @Route("/admin/order/new", name="order_site_new")
+     * @Route("order/new", name="order_site_new")
      * @Method({"GET", "POST"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response

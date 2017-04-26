@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * State controller.
  *
- * @Route("admin/state")
+ * @Route("state")
  */
 class StateController extends Controller
 {
@@ -222,6 +222,7 @@ class StateController extends Controller
             //setting statuses weights
             //array to catch modified states
             $modifiedStates = [];
+            //looping on sorted table to modify statuses weights
             foreach ($newOrder as $key => $stateId) {
                 $state = $em->getRepository('JasderoPassePlatBundle:State')->findOneBy(['id' => $stateId]);
                 $newWeight = 10000 - ($key * 100);

@@ -26,7 +26,7 @@ class OrdersController extends Controller
     /**
      * Lists all order entities. Uses pagination
      *
-     * @Route("/admin/orders/", name="orders_index")
+     * @Route("/orders", name="orders_index")
      * @Method("GET")
      * @param Request $request
      * @return Response
@@ -120,7 +120,7 @@ class OrdersController extends Controller
     /**
      * Finds and displays an order entity with its associated products
      *
-     * @Route("/admin/orders/{id}", name="orders_show")
+     * @Route("orders/{id}", name="orders_show")
      * @Method("GET")
      * @param Orders $order
      * @return Response
@@ -139,7 +139,7 @@ class OrdersController extends Controller
     /**
      * Displays a form to edit an existing order entity.
      *
-     * @Route("/admin/orders/{id}/edit", name="orders_edit")
+     * @Route("orders/{id}/edit", name="orders_edit")
      * @Method({"GET", "POST"})
      * @param Request $request
      * @param Orders $order
@@ -167,7 +167,7 @@ class OrdersController extends Controller
     /**
      * Deletes an order entity.
      *
-     * @Route("/admin/orders/{id}", name="orders_delete")
+     * @Route("orders/{id}", name="orders_delete")
      * @Method("DELETE")
      * @param Request $request
      * @param Orders $order
@@ -204,7 +204,7 @@ class OrdersController extends Controller
 
     /**
      * orders sorted by status from the status page
-     * @Route("/admin/orders/status/{id}", name="orders_by_status")
+     * @Route("orders/status/{id}", name="orders_by_status")
      * @param State $state
      * @return Response
      */
@@ -222,7 +222,7 @@ class OrdersController extends Controller
 
     /**
      * orders filtered by catalog
-     * @Route("/admin/orders/catalog/{id}", name="orders_by_catalog")
+     * @Route("orders/catalog/{id}", name="orders_by_catalog")
      * @param Catalog $catalog
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -247,7 +247,7 @@ class OrdersController extends Controller
 
     /**
      * orders filtered by user
-     * @Route("/admin/orders/user/{id}",name = "orders_by_user")
+     * @Route("orders/user/{id}",name = "orders_by_user")
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
      */

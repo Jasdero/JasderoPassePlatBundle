@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Catalog controller.
  *
- * @Route("admin/catalog")
+ * @Route("catalog")
  */
 class CatalogController extends Controller
 {

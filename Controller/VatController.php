@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Vat controller.
  *
- * @Route("admin/vat")
+ * @Route("vat")
  */
 class VatController extends Controller
 {

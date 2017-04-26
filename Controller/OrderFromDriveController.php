@@ -11,10 +11,19 @@ use Symfony\Component\HttpFoundation\Response;
 class OrderFromDriveController extends CheckingController
 {
 
+    /**
+     * @Route("/drive/index", name="drive_index")
+     * @return Response
+     */
+    public function driveIndexAction()
+    {
+        return $this->render('@JasderoPassePlat/orders/ordersFromDrive.html.twig');
+    }
+
 
     /**
      * Reading the drive folder sheets and turning it into new orders
-     * @Route("/admin/checking/", name="checking")
+     * @Route("/checking", name="checking")
      * @Method({"GET", "POST"})
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
@@ -131,7 +140,7 @@ class OrderFromDriveController extends CheckingController
         } else {
 
         }
-        return $this->render('@JasderoPassePlat/main/ordersWaiting.html.twig', array(
+        return $this->render('@JasderoPassePlat/orders/ordersWaiting.html.twig', array(
             'count' => $count,
             'connection' => $connection
         ));
@@ -256,5 +265,44 @@ class OrderFromDriveController extends CheckingController
             $formattedOrders[] = $formattedOrder;
         }
         return ($formattedOrders);
+    }
+
+    /**
+     * synchronizing with drive
+     * @Route("/drive/synchro", name="drive_synchro")
+     * @return Response
+     */
+    public function synchAllWithDriveAction()
+    {
+        //getting concerned objects
+        $em = $this->getDoctrine()->getManager();
+        $affectedOrders = $em->getRepository('JasderoPassePlatBundle:Orders')->findBy(['driveSynchro' => false]);
+        //used to display how much remaining
+        $totalOrders = count($affectedOrders);
+
+        //only treating one by one to keep track on display and ensure no losses or server time out
+        if ($totalOrders > 0){
+            $this->get('jasdero_passe_plat.drive_folder_as_status')->driveFolder($affectedOrders[0]->getState()->getName(), $affectedOrders[0]->getId());
+            return new Response($totalOrders);
+        } else {
+            return new Response('done');
+        }
+    }
+
+
+    /**
+     * access to view for sync with drive and displaying how much orders are on Drive
+     * @Route("drive/action", name="drive_action")
+     */
+    public function showDriveAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $affectedOrders = $em->getRepository('JasderoPassePlatBundle:Orders')->findBy(['driveSynchro' => false]);
+        //used to display how much remaining
+        $totalOrders = count($affectedOrders);
+
+        return $this->render('@JasderoPassePlat/orders/syncWithDrive.html.twig', array(
+            'totalOrders' => $totalOrders,
+        ));
     }
 }

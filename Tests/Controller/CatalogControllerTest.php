@@ -1,10 +1,11 @@
 <?php
 
+
 namespace Jasdero\PassePlatBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class CategoryControllerTest extends WebTestCase
+class CatalogControllerTest extends WebTestCase
 {
     /**
      * @runInSeparateProcess
@@ -16,13 +17,15 @@ class CategoryControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/category/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /category/");
+        $crawler = $client->request('GET', '/catalog/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /catalog/");
         $crawler = $client->click($crawler->selectLink('add_circle')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('done')->form(array(
-            'jasdero_passeplatbundle_category[name]'  => 'Test',
+            'jasderopasseplatbundle_catalog[name]'  => 'Test',
+            'jasderopasseplatbundle_catalog[description]'  => 'Unit fonctionnel',
+            'jasderopasseplatbundle_catalog[activated]'  => '1',
             // ... other fields to fill
         ));
 
@@ -36,7 +39,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('edit')->link());
 
         $form = $crawler->selectButton('done')->form(array(
-            'jasdero_passeplatbundle_category[name]'  => 'Foo',
+            'jasderopasseplatbundle_catalog[name]'  => 'Foo',
             // ... other fields to fill
         ));
 
@@ -53,6 +56,4 @@ class CategoryControllerTest extends WebTestCase
         // Check the entity has been delete on the list
         $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
     }
-
-
 }

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Comment controller.
  *
- * @Route("admin/comment")
+ * @Route("comment")
  */
 class CommentController extends Controller
 {

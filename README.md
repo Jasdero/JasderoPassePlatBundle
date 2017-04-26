@@ -162,8 +162,8 @@ passe-plat-bundle:
     resource: "@JasderoPassePlatBundle/Controller"
     type:     annotation
 ```
-Please note that all routes are under the ``/admin`` prefix so you will need the according rights to access it.
 
+If you want secure access, this is where you should prefix the routes.
 
 ##### Step 5 : Generate the tables
 
@@ -197,7 +197,7 @@ If you don't need Google Drive, then you're ready to start. Go to the last secti
 Create a Google Account if you don't have one yet.
 Then you [activate the Drive API](https://console.developers.google.com/apis/library) for your application.
 After that you need to [create credentials](https://console.developers.google.com/projectselector/apis/credentials)
-and configure the redirect URI. By defaults it is the "/admin/drive/index" and "/checked" routes in the bundle (for example during dev it is "http://localhost:8000/app_dev.php/admin/drive/index" 
+and configure the redirect URI. By defaults it is the "/drive/index" and "/checked" routes in the bundle (for example during dev it is "http://localhost:8000/app_dev.php/drive/index" 
 AND "http://localhost:8000/app_dev.php/checked").
 Once you have downloaded your credentials, put it in the path you declared as `auth_config`.
 

@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Category controller.
  *
- * @Route("admin/category")
+ * @Route("category")
  */
 class CategoryController extends Controller
 {
@@ -36,6 +36,8 @@ class CategoryController extends Controller
      *
      * @Route("/new", name="category_new")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
@@ -62,6 +64,8 @@ class CategoryController extends Controller
      *
      * @Route("/{id}", name="category_show")
      * @Method("GET")
+     * @param Category $category
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Category $category)
     {
@@ -78,6 +82,9 @@ class CategoryController extends Controller
      *
      * @Route("/{id}/edit", name="category_edit")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Category $category
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, Category $category)
     {
@@ -88,7 +95,9 @@ class CategoryController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('category_index');
+            return $this->redirectToRoute('category_show', array(
+                'id' => $category->getId(),
+            ));
         }
 
         return $this->render('@JasderoPassePlat/category/edit.html.twig', array(
@@ -103,6 +112,9 @@ class CategoryController extends Controller
      *
      * @Route("/{id}", name="category_delete")
      * @Method("DELETE")
+     * @param Request $request
+     * @param Category $category
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, Category $category)
     {

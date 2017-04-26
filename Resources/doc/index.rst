@@ -190,7 +190,8 @@ Open your ``app/config/routing.yml`` and copy the following lines :
             resource: "@JasderoPassePlatBundle/Controller"
             type:     annotation
 
-Please note that all routes are under the ``/admin`` prefix so you will need the according rights to access it.
+If you want secure access, this is where you should prefix the routes.
+
 
 Step 5 : generate the tables
 """"""""""""""""""""""""""""
@@ -232,7 +233,7 @@ Step 1 : Google configuration
 Create a Google Account if you don't have one yet.
 Then you `activate the Drive API`_  for your application.
 After that you need to `create credentials`_
-and configure the redirect URI. By defaults it is the "/checked" and "/admin/drive/index" routes in the bundle (for example during dev it is "http://localhost:8000/app_dev.php/admin/drive/index"
+and configure the redirect URI. By defaults it is the "/checked" and "/drive/index" routes in the bundle (for example during dev it is "http://localhost:8000/app_dev.php/drive/index"
  AND "http://localhost:8000/app_dev.php/checked").
 Once you have downloaded your credentials, put it in the path you declared as ``auth_config``.
 
