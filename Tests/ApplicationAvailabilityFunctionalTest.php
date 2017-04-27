@@ -8,7 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class ApplicationAvailabilityFunctionalTest extends WebTestCase
 {
     /**
+     * Tests that urls are active; modify accordingly if you changed the routes, also needs at least one entry in tables
      * @dataProvider urlProvider
+     * @param $url
      */
     public function testPageIsSuccessful($url)
     {
@@ -49,6 +51,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
             array('/state/1'),
             array('/state/new'),
             array('/state/1/edit'),
+            array('/user/1')
             // ...
         );
     }

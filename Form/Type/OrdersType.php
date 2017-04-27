@@ -26,11 +26,11 @@ class OrdersType extends AbstractType
                     return $er->createQueryBuilder('u')
                         ->where('u.activated = true');
                 },
-                'choice_label' => function (Catalog $product) {
-                    $description = $product->getDescription();
-                    $branch = $product->getBranch();
-                    $category = $product->getCategory();
-                    $subCategory = $product->getSubCategory();
+                'choice_label' => function (Catalog $catalog) {
+                    $name = $catalog->getName();
+                    $branch = $catalog->getBranch();
+                    $category = $catalog->getCategory();
+                    $subCategory = $catalog->getSubCategory();
                     $metas = [];
                     $show = "";
                     if($branch){
@@ -45,7 +45,7 @@ class OrdersType extends AbstractType
                     foreach ($metas as $meta) {
                         $show .= $meta."/ ";
                     }
-                    return $description." Category : ".$show;
+                    return $name." Category : ".$show;
                 },
                 'expanded' => true,
                 'multiple' => true,

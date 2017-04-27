@@ -19,7 +19,8 @@ class CatalogType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class)
+        $builder
+            ->add('name', TextType::class)
             ->add('description', TextType::class)
             ->add('pretaxPrice', NumberType::class, array(
                 'label' => 'Pretax-price (optional)',

@@ -229,6 +229,7 @@ different.
 
 ### Using the bundle
 #### Settings : this is where you start
+The index for the bundle is "/dashboard".
 
 All these features are under the "Settings" menu.
 

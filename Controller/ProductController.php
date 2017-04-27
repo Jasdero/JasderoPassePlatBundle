@@ -5,7 +5,7 @@ namespace Jasdero\PassePlatBundle\Controller;
 use Jasdero\PassePlatBundle\Entity\Catalog;
 use Jasdero\PassePlatBundle\Entity\Product;
 use Jasdero\PassePlatBundle\Entity\State;
-use Jasdero\PassePlatBundle\Form\Type\ProductType;
+use Jasdero\PassePlatBundle\Form\Type\ProductEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -54,34 +54,6 @@ class ProductController extends Controller
         ));
     }
 
-    /**
-     * Creates a new product entity.
-     *
-     * @Route("/new", name="product_new")
-     * @Method({"GET", "POST"})
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     */
-
-    public function newAction(Request $request)
-    {
-        $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($product);
-            $em->flush();
-
-            return $this->redirectToRoute('product_show', array('id' => $product->getId()));
-        }
-
-        return $this->render('@JasderoPassePlat/product/new.html.twig', array(
-            'product' => $product,
-            'form' => $form->createView(),
-        ));
-    }
 
     /**
      * Finds and displays a product entity.
@@ -115,7 +87,7 @@ class ProductController extends Controller
     public function editAction(Request $request, Product $product)
     {
         $deleteForm = $this->createDeleteForm($product);
-        $editForm = $this->createForm(ProductType::class, $product);
+        $editForm = $this->createForm(ProductEditType::class, $product);
         $editForm->handleRequest($request);
         $driveActivation = $this->get('service_container')->getParameter('drive_activation');
 

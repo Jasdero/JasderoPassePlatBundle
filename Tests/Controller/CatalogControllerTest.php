@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class CatalogControllerTest extends WebTestCase
 {
     /**
+     * Tests creation, edit and deletion of a Catalog
      * @runInSeparateProcess
      */
 

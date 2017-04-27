@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class StateControllerTest extends WebTestCase
 {
     /**
+     * Tests creation, edit and deletion of a Status
      * @runInSeparateProcess
      */
 

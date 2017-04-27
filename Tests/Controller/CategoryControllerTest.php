@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class CategoryControllerTest extends WebTestCase
 {
     /**
+     * Tests creation, edit and deletion of a Category
      * @runInSeparateProcess
      */
 

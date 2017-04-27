@@ -7,6 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class MainControllerTest extends WebTestCase
 {
 
+    /**
+     * Tests navbar is loading in Dashboard view
+     */
     public function testDashboard()
     {
         $client = static::createClient();
@@ -17,6 +20,7 @@ class MainControllerTest extends WebTestCase
     }
 
     /**
+     * Tests valid display of basic views
      * @dataProvider linksProvider
      * @param $linkContent
      */

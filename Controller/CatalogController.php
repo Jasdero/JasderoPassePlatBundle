@@ -52,12 +52,13 @@ class CatalogController extends Controller
     }
 
 
-
     /**
      * Creates a new catalog entity.
      *
      * @Route("/new", name="catalog_new")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function newAction(Request $request)
     {

@@ -227,12 +227,10 @@ class OrderFromDriveController extends CheckingController
     /**
      * redirection page, used in the OAuth2 authentication Flow
      * @Route("/checked", name="auth_checked")
-     *
      */
     public function authCheckedAction()
     {
         return $this->get('jasdero_passe_plat.drive_connection')->authCheckedAction();
-
     }
 
 

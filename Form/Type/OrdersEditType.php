@@ -11,7 +11,8 @@ class OrdersEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->remove('catalogs')
+        $builder
+        ->remove('catalogs')
         ;
     }
 
