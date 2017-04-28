@@ -167,7 +167,8 @@ Since the bundle uses `FOSUserBundle`_
 you also need to configure your app accordingly.
 Please note that this bundle provides a User table if you don't want/need to create a custom one . To extend it, just put the following line while
 configuring FOSUser.
-
+Also consider that since the aim of the bundle is not to manage your users, there are no routes provided for registering, logging and all related
+actions.
 
 
 .. code-block:: yml
