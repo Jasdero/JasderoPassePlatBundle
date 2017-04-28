@@ -2,8 +2,10 @@
 
 {% block passe_plat_content %}
     <div class="container">
+        <h5 class="center-align">Categories list</h5>
+
+        {# table section #}
         <div class="row">
-            <h5 class="center-align">Categories list</h5>
             <table class="tablesorter bordered centered" id="categoriesTable">
                 <thead>
                 <tr>
@@ -26,6 +28,10 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+
+        {# buttons section #}
+        <div class="row">
             <div class="iconsBlock center-align">
                 <a href="{{ path('category_new') }}" class="addIcon" title="create a new category"><i class="medium material-icons">add_circle</i></a>
             </div>

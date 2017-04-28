@@ -3,6 +3,8 @@
 {% block passe_plat_content %}
     <div class="container">
         <div class="row">
+
+            {# form section #}
             <h5 class="center-align">{{ container }} edit</h5>
             {{ form_start(edit_form) }}
             <div class="col offset-s3 s6 center-align ">
@@ -12,16 +14,18 @@
                 <div class="col s12 input-field">
                     {{ form_row(edit_form.comment) }}
                 </div>
-            </div>
-            <div class="iconsBlock col s12 center-align">
-                <a href="{{ path('orders_index') }}" class="iconAsLink" title="back">
-                    <button class="btn-floating grey darken-3"><i class="medium material-icons">skip_previous</i></button>
-                </a>
-                <button type="submit" class="btn-floating grey darken-3" title="confirm"><i class="medium material-icons">done</i></button>
-                {{ form_end(edit_form) }}
-                {{ form_start(delete_form) }}
-                <button type="submit" title="delete" class="btn-floating grey darken-3"><i class="medium material-icons">delete_forever</i></button>
-                {{ form_end(delete_form) }}
+
+            {# buttons section #}
+                <div class="iconsBlock col s12 center-align">
+                    <a href="{{ path('orders_index') }}" class="iconAsLink" title="back">
+                        <button class="btn-floating grey darken-3"><i class="medium material-icons">skip_previous</i></button>
+                    </a>
+                    <button type="submit" class="btn-floating grey darken-3" title="confirm"><i class="medium material-icons">done</i></button>
+                    {{ form_end(edit_form) }}
+                    {{ form_start(delete_form) }}
+                    <button type="submit" title="delete" class="btn-floating grey darken-3"><i class="medium material-icons">delete_forever</i></button>
+                    {{ form_end(delete_form) }}
+                </div>
             </div>
         </div>
     </div>

@@ -4,27 +4,30 @@
     <div class="container">
         <div class="row center-block">
             <h5 class="center-align">Create a new {{ container }}</h5>
-            <div class="col s12 center-align">
-                {{ form_start(form) }}
-                {{ form_errors(form) }}
-                <div class="col s12 m6 left-align">
-                {{ form_row(form.catalogs) }}
-                </div>
-                <div class="col s12">
-                {{ form_row(form.user) }}
-                </div>
-                <div class="col s12 input-field">
-                {{ form_row(form.comment) }}
-                </div>
-                <div class="center-align col s12 iconsBlock">
-                    <a href="{{ path('orders_index') }}" title="back">
-                        <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i>
-                        </button>
-                    </a>
-                    <button type="submit" class="btn-floating grey darken-3" title="confirm"><i class="material-icons">done</i></button>
-                </div>
-                {{ form_end(form) }}
+
+            {# form section #}
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="col s12 offset-m3 m6 left-align">
+            {{ form_row(form.catalogs) }}
             </div>
+            <div class="col s12">
+            {{ form_row(form.user) }}
+            </div>
+            <div class="col s12 input-field">
+            {{ form_row(form.comment) }}
+            </div>
+
+            {# buttons section #}
+            <div class="center-align col s12 iconsBlock">
+                <a href="{{ path('orders_index') }}" title="back">
+                    <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i>
+                    </button>
+                </a>
+                <button type="submit" class="btn-floating grey darken-3" title="confirm"><i class="material-icons">done</i></button>
+            </div>
+            {{ form_end(form) }}
+
         </div>
     </div>
 {% endblock %}

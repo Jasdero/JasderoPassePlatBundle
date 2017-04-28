@@ -2,10 +2,17 @@
 
 {% block passe_plat_content %}
     <div class="container">
+        <h5 class="center-align">Vat edit</h5>
+
+        {# form section #}
         <div class="row">
-            <h5 class="center-align">Vat edit</h5>
             {{ form_start(edit_form) }}
-            {{ form_widget(edit_form) }}
+            {{ form_errors(edit_form) }}
+            <div class="col offset-s3 s6">
+                {{ form_row(edit_form.rate) }}
+            </div>
+
+        {# buttons section#}
             <div class="col s12 iconsBlock center-align">
                 <a href="{{ path('vat_index') }}" title="back">
                     <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>

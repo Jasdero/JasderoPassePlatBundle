@@ -3,25 +3,28 @@
 {% block passe_plat_content %}
     <div class="container">
         <div class="row">
-            <div class="col s12">
-                <h5 class="center-align">{{ container }} list</h5>
+            <h5 class="center-align">{{ container }} list</h5>
+
+            {# table section#}
+            <div class="row">
                 <table class="bordered tablesorter" id="tableOrders">
                     <thead>
-                    <tr>
-                        <th>{{ container }} Id</th>
-                        <th>{{ content }} Id</th>
-                        <th>{{ content }}</th>
-                        <th>Branch</th>
-                        <th>Category</th>
-                        <th>Subcategory</th>
-                        <th>Customer</th>
-                        <th>Created on</th>
-                        <th>Last update</th>
-                    </tr>
+                        <tr>
+                            <th>{{ container }} Id</th>
+                            <th>{{ content }} Id</th>
+                            <th>{{ content }}</th>
+                            <th>Branch</th>
+                            <th>Category</th>
+                            <th>Subcategory</th>
+                            <th>Customer</th>
+                            <th>Created on</th>
+                            <th>Last update</th>
+                        </tr>
                     </thead>
                     <tbody>
 
                     {% for order in orders %}
+                        {# variables used as flags to avoid multiple displays #}
                         {% set pid = '' %}
                         {% set puser ='' %}
                         {% set pcreation ='' %}
@@ -29,6 +32,7 @@
                         {% for product in order.products %}
 
                             <tr>
+                                {# if order is not already displayed, display it#}
                                 {% if pid != order.id %}
                                     {% set pid = order.id %}
                                     <td><a href="{{ path('orders_show', { 'id': order.id }) }}"
@@ -39,6 +43,7 @@
                                         {% endif %}
                                            class="{{ order.state.color }} white-text linkAsBlock center-align">{{ order.id }}</a>
                                     </td>
+                                {# else hide order id #}
                                 {% else %}
                                     <td><p hidden>{{ order.id }}</p>
                                     </td>
@@ -103,16 +108,24 @@
                     {% endfor %}
                     </tbody>
                 </table>
-                {% block pagination %}
+            </div>
+
+            {% block pagination %}
+            <div class="row">
                 <div class="center-align">
                     <h3>{{ knp_pagination_render(orders) }}</h3>
                 </div>
-                {% endblock %}
+            </div>
+            {% endblock %}
+
+            {# buttons section #}
+            <div class="row">
                 <div class="center-align iconsBlock">
                     <a href={% if driveActivation %}"{{ path('drive_index') }}"{% else %}"{{ path('order_site_new') }}"{% endif %}
                     class="addIcon" title="create a new {{ container }}"><i class="medium material-icons">add_circle</i></a>
                 </div>
             </div>
+
         </div>
     </div>
 {% endblock %}

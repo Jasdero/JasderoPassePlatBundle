@@ -2,8 +2,10 @@
 
 {% block passe_plat_content %}
     <div class="container">
+        <h5 class="center-align">Catalog</h5>
+
+        {# table section #}
         <div class="row">
-            <h5 class="center-align">Catalog</h5>
             <table>
                 <tbody>
                 <tr>
@@ -40,16 +42,20 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+
+        {# buttons section#}
+        <div class="row">
             <div class="iconsBlock col s12 center-align">
-                    <a href="{{ path('catalog_index') }}" title="back to the list">
-                        <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
-                    </a>
-                    <a href="{{ path('catalog_edit', { 'id': catalog.id }) }}" class="iconAsLink">
-                        <button type="button" class="btn-floating grey darken-3"><i class="material-icons">edit</i></button>
-                    </a>
-                    {{ form_start(delete_form) }}
-                    <button type="submit" title="delete" class="btn-floating grey darken-3"><i class="material-icons">delete_forever</i></button>
-                    {{ form_end(delete_form) }}
+                <a href="{{ path('catalog_index') }}" title="back to the list">
+                    <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
+                </a>
+                <a href="{{ path('catalog_edit', { 'id': catalog.id }) }}" class="iconAsLink">
+                    <button type="button" class="btn-floating grey darken-3"><i class="material-icons">edit</i></button>
+                </a>
+                {{ form_start(delete_form) }}
+                <button type="submit" title="delete" class="btn-floating grey darken-3"><i class="material-icons">delete_forever</i></button>
+                {{ form_end(delete_form) }}
             </div>
         </div>
     </div>

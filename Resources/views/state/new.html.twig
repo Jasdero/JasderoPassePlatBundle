@@ -2,11 +2,13 @@
 
 {% block passe_plat_content %}
     <div class="container">
+        <h5 class="center-align">Status creation</h5>
+
+        {# form section #}
         <div class="row">
-            <h5 class="center-align">Status creation</h5>
             {{ form_start(form) }}
             {{ form_errors(form) }}
-            <div class="col s12 m4">
+            <div class="col s12 m4 input-field">
                 {{ form_row(form.name) }}
             </div>
             <div class="col s12 m4">
@@ -15,9 +17,13 @@
             <div class="col s12 m4">
                 {{ form_row(form.activated) }}
             </div>
-            <div class="col s12">
-                {{ form_row(form.description) }}
+            <div class="row">
+                <div class="col s12 input-field">
+                    {{ form_row(form.description) }}
+                </div>
             </div>
+
+        {# buttons section #}
             <div class="col s12 center-align iconsBlock">
                 <a href="{{ path('state_index') }}" title="back">
                     <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>

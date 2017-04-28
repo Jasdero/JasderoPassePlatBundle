@@ -2,35 +2,41 @@
 
 {% block passe_plat_content %}
     <div class="container">
+        <h5 class="center-align">Vats list</h5>
+
+        {# table section #}
         <div class="row center-align">
-            <div class="col s12 center-block">
-                <h5>Vats list</h5>
-                <table class="tablesorter bordered centered" id="vatstable">
-                    <thead>
+            <table class="tablesorter bordered centered" id="vatstable">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Rate</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for vat in vats %}
                     <tr>
-                        <th>Id</th>
-                        <th>Rate</th>
-                        <th>Actions</th>
+                        <td>
+                            <a href="{{ path('vat_show', { 'id': vat.id }) }}" class="btn grey darken-3" title="view detail">{{ vat.id }}
+                            </a>
+                        </td>
+                        <td>{{ vat.rate }}</td>
+                        <td>
+                            <a href="{{ path('vat_edit', { 'id': vat.id }) }}" class="btn grey darken-3" title="edit"><i class="material-icons">edit</i></a>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {% for vat in vats %}
-                        <tr>
-                            <td>
-                                <a href="{{ path('vat_show', { 'id': vat.id }) }}" class="btn grey darken-3" title="view detail">{{ vat.id }}
-                                </a>
-                            </td>
-                            <td>{{ vat.rate }}</td>
-                            <td>
-                                <a href="{{ path('vat_edit', { 'id': vat.id }) }}" class="btn grey darken-3" title="edit"><i class="material-icons">edit</i></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                <div class="iconsBlock center-align">
-                    <a href="{{ path('vat_new') }}" class="addIcon" title="create a new vat"><i class="medium material-icons">add_circle</i></a>
-                </div>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {# buttons section #}
+        <div class="row">
+            <div class="iconsBlock center-align">
+                <a href="{{ path('vat_new') }}" class="addIcon" title="create a new vat">
+                    <i class="medium material-icons">add_circle</i>
+                </a>
             </div>
         </div>
     </div>

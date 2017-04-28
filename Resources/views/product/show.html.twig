@@ -4,46 +4,51 @@
     <div class="container">
         <div class="row">
             <h5 class="center-align">{{ content }} Detail </h5>
-            <table>
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>{{ container }}</th>
-                    <th>Description</th>
-                    <th>Pretax Price</th>
-                    <th>Vat Rate</th>
-                    <th>Customer</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="btn-floating center-align blue-grey darken-1">{{ product.id }}</td>
-                    <td>{{ product.catalog.name }}</td>
-                    <td>
-                        <a href="{{ path('orders_show', {'id': product.orders.id}) }}" class="btn blue-grey darken-3"
-                           {% if product.orders.comment %}
-                                title="{{ product.orders.comment.content }}">
-                           {% else %}
-                                title="view {{ container }}">
-                           {% endif %}
-                                {{ product.orders.id }}
-                        </a>
-                    </td>
-                    <td>{{ product.catalog.description }}</td>
-                    <td>{{ product.pretaxPrice }}</td>
-                    <td>{% if product.vatRate %}{{ product.vatRate }}{% endif %}</td>
-                    <td>
-                        <a href="{{ path('user_detail', {id : product.orders.user.id}) }}">
-                            {{ product.orders.user.username }}
-                        </a>
-                    </td>
-                    <td class="{{ product.state.color }}">{{ product.state.name }}</td>
-                </tr>
-                </tbody>
-            </table>
 
+            {# table section #}
+            <div class="row">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>{{ container }}</th>
+                            <th>Description</th>
+                            <th>Pretax Price</th>
+                            <th>Vat Rate</th>
+                            <th>Customer</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="btn-floating center-align blue-grey darken-1">{{ product.id }}</td>
+                            <td>{{ product.catalog.name }}</td>
+                            <td>
+                                <a href="{{ path('orders_show', {'id': product.orders.id}) }}" class="btn blue-grey darken-3"
+                                   {% if product.orders.comment %}
+                                        title="{{ product.orders.comment.content }}">
+                                   {% else %}
+                                        title="view {{ container }}">
+                                   {% endif %}
+                                        {{ product.orders.id }}
+                                </a>
+                            </td>
+                            <td>{{ product.catalog.description }}</td>
+                            <td>{{ product.pretaxPrice }}</td>
+                            <td>{% if product.vatRate %}{{ product.vatRate }}{% endif %}</td>
+                            <td>
+                                <a href="{{ path('user_detail', {id : product.orders.user.id}) }}">
+                                    {{ product.orders.user.username }}
+                                </a>
+                            </td>
+                            <td class="{{ product.state.color }}">{{ product.state.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            {# comments section #}
             <div class="row">
                 <div class="col s12">
                     <p><strong>Comment</strong></p>
@@ -58,20 +63,24 @@
                 </div>
             </div>
 
-            <div class="iconsBlock col s12 center-align">
-                <a href="{{ path('product_index') }}" title="back to the list of {{ content }}">
-                    <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
-                </a>
-                <a href="{{ path('orders_show', {'id': product.orders.id}) }}" title="view {{ container }}">
-                    <button type="button" class="btn-floating grey darken-3"><i class="material-icons">storage</i></button>
-                </a>
-                <a href="{{ path('product_edit', { 'id': product.id }) }}" class="iconAsLink" title="edit">
-                    <button type="button" class="btn-floating grey darken-3"><i class="material-icons">edit</i></button>
-                </a>
-                {{ form_start(delete_form) }}
-                <button type="submit" title="delete" class="btn-floating grey darken-3"><i class="material-icons">delete_forever</i></button>
-                {{ form_end(delete_form) }}
+            {# buttons section #}
+            <div class="row">
+                <div class="iconsBlock col s12 center-align">
+                    <a href="{{ path('product_index') }}" title="back to the list of {{ content }}">
+                        <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
+                    </a>
+                    <a href="{{ path('orders_show', {'id': product.orders.id}) }}" title="view {{ container }}">
+                        <button type="button" class="btn-floating grey darken-3"><i class="material-icons">storage</i></button>
+                    </a>
+                    <a href="{{ path('product_edit', { 'id': product.id }) }}" class="iconAsLink" title="edit">
+                        <button type="button" class="btn-floating grey darken-3"><i class="material-icons">edit</i></button>
+                    </a>
+                    {{ form_start(delete_form) }}
+                    <button type="submit" title="delete" class="btn-floating grey darken-3"><i class="material-icons">delete_forever</i></button>
+                    {{ form_end(delete_form) }}
+                </div>
             </div>
+
         </div>
     </div>
 {% endblock %}

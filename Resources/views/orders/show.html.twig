@@ -2,8 +2,10 @@
 
 {% block passe_plat_content %}
     <div class="container">
+        <h5 class="center-align">{{ container }} detail</h5>
+
+        {# first table with basic informations #}
         <div class="row">
-            <h5 class="center-align">{{ container }} detail</h5>
             <table>
                 <thead>
                 <tr>
@@ -26,6 +28,8 @@
                 </tbody>
             </table>
         </div>
+
+        {# table with contents #}
         <div class="row">
             <table>
                 <thead>
@@ -83,6 +87,8 @@
                 </tbody>
             </table>
         </div>
+
+        {# comments section #}
         <div class="row">
             <div class="col s12">
                 <p><strong>Comment</strong></p>
@@ -97,6 +103,7 @@
             </div>
         </div>
 
+        {# buttons section #}
         <div class="iconsBlock col s12 center-align">
             <a href="{{ path('orders_index') }}" title="back to the list">
                 <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>

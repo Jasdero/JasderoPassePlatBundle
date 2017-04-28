@@ -1,10 +1,13 @@
 {% extends '@JasderoPassePlat/main/adminLayout.html.twig' %}
 {% block passe_plat_content %}
     <div class="container">
+
+        {# container section #}
         <div class="row center-align">
             <h5>{{ container }}</h5>
             <hr>
             {% for state in states %}
+                {# counting containers per status #}
                 {% set nbOrders = 0 %}
                 {% for order in state.orders %}
                     {% set nbOrders = nbOrders+1 %}
@@ -14,8 +17,9 @@
                         <a href="{{ path('orders_by_status', {'id':  state.id}) }}" class="white-text linkAsBlock"
                            title="view list of {{ container }}">
                             <div class="card-panel {{ state.color }}">
+                                {# truncating big numbers #}
                                 {% set length = nbOrders|length %}
-                                {% if length > 3 and lg <=6 %}
+                                {% if length > 3 and length <=6 %}
                                     {{ nbOrders|truncate(length-3, false, 'K') }}
                                 {% elseif length>6 %}
                                     {{ nbOrders|truncate(length-6, false, 'M') }}
@@ -29,10 +33,13 @@
                 {% endif %}
             {% endfor %}
         </div>
+
+        {# content section #}
         <div class="row center-align">
             <h5>{{ content }}</h5>
             <hr>
             {% for state in states %}
+                {# counting content per status #}
                 {% set nbProducts = 0 %}
                 {% for product in state.products %}
                     {% set nbProducts = nbProducts+1 %}
@@ -56,6 +63,8 @@
                 {% endif %}
             {% endfor %}
         </div>
+
+        {# button section #}
         <div class="row  center-align">
             <div class="iconsBlock">
                 <a href={% if driveActivation %}"{{ path('drive_index') }}"{% else %}"{{ path('order_site_new') }}"{% endif %}

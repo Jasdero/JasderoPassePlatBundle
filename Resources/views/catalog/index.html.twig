@@ -2,8 +2,10 @@
 
 {% block passe_plat_content %}
     <div class="container">
+    <h5 class="center-align">Catalogs list</h5>
+
+        {# table section #}
         <div class="row">
-        <h5 class="center-align">Catalogs list</h5>
             <table class="tablesorter bordered" id="catalogstable">
                 <thead>
                 <tr>
@@ -28,7 +30,7 @@
                             <a href="{{ path('catalog_show', { 'id': catalog.id }) }}" class="btn grey darken-3" title="view detail">{{ catalog.id }}</a>
                         </td>
                         <td>{{ catalog.name }}</td>
-                        <td>{{ catalog.description }}</td>
+                        <td>{{ catalog.description|truncate(10) }}</td>
                         <td>{{ catalog.pretaxPrice }}</td>
                         <td>{% if catalog.vat %}{{ catalog.vat.rate }}{% endif %}</td>
                         <td>
@@ -68,7 +70,10 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
 
+        {# buttons section #}
+        <div class="row">
             <div class="iconsBlock center-align">
                 <a href="{{ path('catalog_new') }}" class="addIcon" title="create a new catalog"><i class="medium material-icons">add_circle</i></a>
             </div>

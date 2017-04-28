@@ -2,78 +2,134 @@
 
 {% block passe_plat_content %}
     <div class="container">
+        <h5 class="center-align">Statuses list</h5>
+
         <div class="row center-align">
-            <h5>Statuses list</h5>
-            <div class="col s12">
-                <p class="notice">Drag and drop to sort statuses by order of importance then click
-                    <button type="button" class="btn blue-grey darken-3" id="validOrder">here</button><img src="{{ asset('images/ajax-loader.gif') }}" alt="" id="loader">
-                    to valid</p>
-                <table id="table-status" class="bordered tablesorter">
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Nb of {{ content }}</th>
-                        <th>Nb of {{ container }}</th>
-                        <th>Color</th>
-                        <th>Activated</th>
-                        <th>Actions</th>
+            <p class="notice">Drag and drop to sort statuses by order of importance then click
+                <button type="button" class="btn blue-grey darken-3" id="validOrder">here</button>
+                {# only displayed during ajax request #}
+                <img src="{{ asset('images/ajax-loader.gif') }}" alt="" id="loader">
+                to valid
+            </p>
+        </div>
+
+        {# table section #}
+        <div class="row">
+            <table id="table-status" class="bordered tablesorter">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Nb of {{ content }}</th>
+                    <th>Nb of {{ container }}</th>
+                    <th>Color</th>
+                    <th>Activated</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# var used to flag a need for drive synchronization #}
+                {% set isSynchro = true %}
+                {% for state in states %}
+                    <tr id="{{ state.id }}">
+                        <td>
+                            <a href="{{ path('state_show', { 'id': state.id }) }}" class="btn grey darken-3" title="view detail">
+                                {{ state.id }}
+                            </a>
+                        </td>
+                        <td class="sorter">{{ state.name }}</td>
+                        <td>{{ state.description }}</td>
+                        <td class="center-align">
+                            {# counting  products per status #}
+                            {% set nbProducts = 0 %}
+                            {% for product in state.products %}
+                                {% set nbProducts = nbProducts+1 %}
+                            {% endfor %}
+                            <a href="{{ path('products_by_status', {'id': state.id}) }}"
+                               class="btn-floating center-align blue-grey darken-1" title="view {{ content }}">
+                                {# truncating big numbers #}
+                                {% set length = nbProducts|length %}
+                                {% if length > 3 and length <=6 %}
+                                    {{ nbProducts|truncate(length-3, false, 'K') }}
+                                {% elseif length>6 %}
+                                    {{ nbProducts|truncate(length-6, false, 'M') }}
+                                {% else %}
+                                    {{ nbProducts }}
+                                {% endif %}
+                                </a>
+                                {# displaying total and truncating big numbers #}
+                                {% set length = totalProducts|length %}
+                                {% if length > 3 and length <=6 %}
+                                    /{{ totalProducts|truncate(length-3, false, 'K') }}
+                                {% elseif length>6 %}
+                                    /{{ totalProducts|truncate(length-6, false, 'M') }}
+                                {% else %}
+                                    /{{ totalProducts }}
+                                {% endif %}
+                        </td>
+                        <td>
+                            {# counting  orders per status #}
+                            {% set nbOrders = 0 %}
+                            {% for order in state.orders %}
+                                {% set nbOrders = nbOrders+1 %}
+                                {# checking for unsynchro with drive #}
+                                {% if not order.driveSynchro %}
+                                    {% set isSynchro = false %}
+                                {% endif %}
+                            {% endfor %}
+                            <a href="{{ path('orders_by_status', {'id':  state.id}) }}"
+                               class="btn blue-grey darken-3 tablebtn" title="view {{ container }}">
+                                {# truncating big numbers #}
+                                {% set length = nbOrders|length %}
+                                {% if length > 3 and length <=6 %}
+                                    {{ nbOrders|truncate(length-3, false, 'K') }}
+                                {% elseif length>6 %}
+                                    {{ nbOrders|truncate(length-6, false, 'M') }}
+                                {% else %}
+                                    {{ nbOrders }}
+                                {% endif %}
+                                /
+                                {# displaying total and truncating big numbers #}
+                                {% set length = totalOrders|length %}
+                                {% if length > 3 and length <=6 %}
+                                    {{ totalOrders|truncate(length-3, false, 'K') }}
+                                {% elseif length>6 %}
+                                    {{ totalOrders|truncate(length-6, false, 'M') }}
+                                {% else %}
+                                    {{ totalOrders }}
+                                {% endif %}
+                            </a>
+                        </td>
+                        <td class="{{ state.color }}">{{ state.color }}</td>
+                        <td>{% if state.activated %}Yes{% else %}No{% endif %}</td>
+                        <td>
+                            <a href="{{ path('state_edit', { 'id': state.id }) }}" class="btn grey darken-3" title="edit">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {# var used to flag a need for drive synchronization #}
-                    {% set isSynchro = true %}
-                    {% for state in states %}
-                        <tr id="{{ state.id }}">
-                            <td><a href="{{ path('state_show', { 'id': state.id }) }}" class="btn grey darken-3" title="view detail">{{ state.id }}</a>
-                            </td>
-                            <td class="sorter">{{ state.name }}</td>
-                            <td>{{ state.description }}</td>
-                            <td class="center-align">
-                                {# counting  products affected by this state#}
-                                {% set nbProducts = 0 %}
-                                {% for product in state.products %}
-                                    {% set nbProducts = nbProducts+1 %}
-                                {% endfor %}
-                                <a href="{{ path('products_by_status', {'id': state.id}) }}"
-                                   class="btn-floating center-align blue-grey darken-1" title="view {{ content }}">{{ nbProducts }}
-                                    </a>/ {{ totalProducts }}
-                            </td>
-                            <td>
-                                {# counting  orders affected by this state#}
-                                {% set nbOrders = 0 %}
-                                {% for order in state.orders %}
-                                    {% set nbOrders = nbOrders+1 %}
-                                    {# checking for unsynchro with drive #}
-                                    {% if not order.driveSynchro %}
-                                        {% set isSynchro = false %}
-                                    {% endif %}
-                                {% endfor %}
-                                <a href="{{ path('orders_by_status', {'id':  state.id}) }}"
-                                   class="btn blue-grey darken-3 tablebtn" title="view {{ container }}">{{ nbOrders }} / {{ totalOrders }}</a>
-                            </td>
-                            <td class="{{ state.color }}">{{ state.color }}</td>
-                            <td>{% if state.activated %}Yes{% else %}No{% endif %}</td>
-                            <td>
-                                <a href="{{ path('state_edit', { 'id': state.id }) }}" class="btn grey darken-3"
-                                   title="edit"><i class="material-icons">edit</i></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                {% if not isSynchro and driveActivation %}
-                    <blockquote>There are some {{ container }} not up to date on the Drive. Click
-                        <a href="{{ path('drive_action') }}">here</a> to go to the manager.
-                    </blockquote>
-                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-                <div class="iconsBlock center-align">
-                    <a href="{{ path('state_new') }}" class="addIcon" title="create a new status"><i
-                                    class="medium material-icons">add_circle</i></a>
-                </div>
+        {# displayed or not depending on config and differences with drive statuses #}
+        {% if not isSynchro and driveActivation %}
+            <div class="row">
+                <blockquote>There are some {{ container }} not up to date on the Drive. Click
+                    <a href="{{ path('drive_action') }}">here</a> to go to the manager.
+                </blockquote>
+            </div>
+        {% endif %}
 
+
+        {# buttons section #}
+        <div class="row">
+            <div class="iconsBlock center-align">
+                <a href="{{ path('state_new') }}" class="addIcon" title="create a new status">
+                    <i class="medium material-icons">add_circle</i>
+                </a>
             </div>
         </div>
     </div>
@@ -93,7 +149,7 @@
             //hiding loader by default
             loader.hide();
 
-            //showing loader on ajax
+            //showing loader on ajax and then hide it again
             $(document).ajaxStart(function () {
                 loader.show();
                 buttonOrders.hide();
@@ -112,6 +168,7 @@
                         type: "POST"
                     }
                 );
+                //retrieving hierarchy in the table
                 var order = [];
                 var token = '{{ token }}';
                 table.find("tr").each(function () {

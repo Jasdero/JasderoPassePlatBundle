@@ -4,12 +4,16 @@
         <div class="row">
             <div class="col s12">
                 <h4 class="center-align">Manage {{ container }} in Google Drive</h4>
+
+                {# showing orders waiting on the drive #}
                 {{ render(controller('JasderoPassePlatBundle:OrderFromDrive:countWaitingOrders')) }}
                 <div class="center-align">
                     <button type="button" class="btn" id="goSynchro">Scan folder for new {{ container }}</button>
 
                     <h4>OR</h4>
                     <a href="{{ path('order_site_new') }}" class="btn light-green">Create a new {{ container }}</a>
+
+                    {# used for real time progress of drive #}
                     <p id="progress">
                         Number of new {{ container }} : <span id="valid"></span><br>
                         Number of {{ container }} with errors : <span id="invalid"></span><br>

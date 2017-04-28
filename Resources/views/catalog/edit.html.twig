@@ -2,8 +2,10 @@
 
 {% block passe_plat_content %}
     <div class="container">
+        <h5 class="center-align">Catalog edit</h5>
+
+        {# form section #}
         <div class="row">
-            <h5 class="center-align">Catalog edit</h5>
             {{ form_start(edit_form) }}
             <div class="input-field">
                 {{ form_row(edit_form.name) }}
@@ -33,6 +35,8 @@
                     {{ form_row(edit_form.activated, { 'label': 'Activation' }) }}
                 </div>
             </div>
+
+        {# buttons section #}
             <div class="iconsBlock col s12 center-align">
                 <a href="{{ path('catalog_index') }}" title="back">
                     <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i>
@@ -41,7 +45,6 @@
                 <button type="submit" class="btn-floating grey darken-3" title="confirm"><i
                             class="material-icons">done</i></button>
                 {{ form_end(edit_form) }}
-
             </div>
         </div>
     </div>

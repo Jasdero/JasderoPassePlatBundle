@@ -26,7 +26,6 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
             array('/dashboard'),
             array('/product/'),
             array('/product/1/edit'),
-            array('/product/new'),
             array('/product/status/1'),
             array('/product/catalog/1'),
             array('/category/'),
