@@ -25,12 +25,12 @@ class CommentController extends Controller
      * @param Comment $comment
      * @return Response
      */
-    public function deleteFormOrderAction(Comment $comment)
+    public function deleteFromOrderAction(Comment $comment)
     {
 
             $em = $this->getDoctrine()->getManager();
             $order = $comment->getOrder();
-            $order->setComment(null);
+            $order->removeComment($comment);
             $em->remove($comment);
             $em->flush();
 
@@ -50,11 +50,12 @@ class CommentController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $product = $comment->getProduct();
-        $product->setComment(null);
+        $product->removeComment($comment);
         $em->remove($comment);
         $em->flush();
 
         return new Response();
     }
+
 
 }

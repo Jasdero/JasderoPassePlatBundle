@@ -12,11 +12,11 @@
                     <tr>
                         <th>Id</th>
                         <th>{{ container }}</th>
-                        <th>Pretax-price</th>
                         <th>Branch</th>
                         <th>Category</th>
                         <th>Subcategory</th>
                         <th>Customer</th>
+                        <th>Pretax-price</th>
                         <th>Vat rate</th>
                         <th>Status</th>
                     </tr>
@@ -25,26 +25,15 @@
                     {% for product in products %}
                         <tr>
                             <td>
-                                <a href="{{ path('product_show', { 'id': product.id }) }}" class="{{ product.state.color }}-text linkAsBlock"
-                                    {% if product.comment %}
-                                        title="{{ product.comment.content }}">
-                                    {% else %}
-                                        title="view detail">
-                                    {% endif %}
+                                <a href="{{ path('product_show', { 'id': product.id }) }}" class="{{ product.state.color }}-text linkAsBlock" title="view detail">
                                     <i class="material-icons left">fiber_manual_record</i>{{ product.id }}
                                 </a>
                             </td>
                             <td class="center-align">
-                                <a href="{{ path('orders_show', {'id': product.orders.id}) }}" class="{{ product.orders.state.color }}-text linkAsBlock"
-                                    {% if product.orders.comment %}
-                                        title="{{ product.orders.comment.content }}">
-                                    {% else %}
-                                        title="view {{ container }}">
-                                    {% endif %}
+                                <a href="{{ path('orders_show', {'id': product.orders.id}) }}" class="{{ product.orders.state.color }}-text linkAsBlock" title="view {{ container }}">
                                     <i class="material-icons left">stop</i>{{ product.orders.id }}
                                 </a>
                             </td>
-                            <td>{{ product.pretaxPrice }}</td>
                             <td>
                                 {% if product.catalog.branch %}
                                     {{ product.catalog.branch.name }}
@@ -65,6 +54,7 @@
                                     {{ product.orders.user.username }}
                                 </a>
                             </td>
+                            <td>{{ product.pretaxPrice }}</td>
                             <td>
                                 {% if product.vatRate %}
                                     {{ product.vatRate }}
@@ -90,7 +80,6 @@
 {% block passe_plat_javascripts %}
     <script>
         $(function () {
-            $("#productstable").tablesorter();
         })
     </script>
 {% endblock %}

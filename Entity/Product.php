@@ -2,7 +2,10 @@
 
 namespace Jasdero\PassePlatBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Product
@@ -64,10 +67,19 @@ class Product
 
     /**
      * @var Comment
-     * @ORM\OneToOne(targetEntity="Comment", inversedBy="product", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="product", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="comment_id", referencedColumnName="id", nullable=true)
+     * @Assert\Valid
      */
-    private $comment;
+    private $comments;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -199,27 +211,39 @@ class Product
         return $this->orders;
     }
 
+
     /**
-     * Set comment
+     * Add comment
      *
      * @param \Jasdero\PassePlatBundle\Entity\Comment $comment
      *
      * @return Product
      */
-    public function setComment(\Jasdero\PassePlatBundle\Entity\Comment $comment = null)
+    public function addComment(\Jasdero\PassePlatBundle\Entity\Comment $comment)
     {
-        $this->comment = $comment;
+        $comment->setProduct($this);
+        $this->comments[] = $comment;
 
         return $this;
     }
 
     /**
-     * Get comment
+     * Remove comment
      *
-     * @return \Jasdero\PassePlatBundle\Entity\Comment
+     * @param \Jasdero\PassePlatBundle\Entity\Comment $comment
      */
-    public function getComment()
+    public function removeComment(\Jasdero\PassePlatBundle\Entity\Comment $comment)
     {
-        return $this->comment;
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

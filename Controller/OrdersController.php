@@ -118,7 +118,7 @@ class OrdersController extends Controller
     }
 
     /**
-     * Finds and displays an order entity with its associated products
+     * Finds and displays an order entity with its associated products and comments
      *
      * @Route("orders/{id}", name="orders_show")
      * @Method("GET")
@@ -127,11 +127,12 @@ class OrdersController extends Controller
      */
     public function showAction(Orders $order)
     {
+        $em = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($order);
-
-
+        $comments = $em->getRepository('JasderoPassePlatBundle:Comment')->findBy(['order'=>$order->getId()], ['lastUpdate'=>'DESC']);
         return $this->render('@JasderoPassePlat/orders/show.html.twig', array(
             'order' => $order,
+            'comments' => $comments,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -150,8 +151,20 @@ class OrdersController extends Controller
         $deleteForm = $this->createDeleteForm($order);
         $editForm = $this->createForm(OrdersEditType::class, $order);
         $editForm->handleRequest($request);
+        $user = $this->getUser();
+
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            //setting the author for each comment
+            foreach ($editForm->get('comments')->getData() as $comment){
+                if($user === null){
+                    $comment->setAuthor('Anonymous');
+                } else {
+                    $comment->setAuthor($user->getUsername());
+                }
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('orders_show', array('id' => $order->getId()));

@@ -66,10 +66,13 @@ class ProductController extends Controller
 
     public function showAction(Product $product)
     {
+        $em = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($product);
+        $comments = $em->getRepository('JasderoPassePlatBundle:Comment')->findBy(['product'=>$product->getId()], ['lastUpdate' => 'DESC']);
 
         return $this->render('@JasderoPassePlat/product/show.html.twig', array(
             'product' => $product,
+            'comments' => $comments,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -90,9 +93,19 @@ class ProductController extends Controller
         $editForm = $this->createForm(ProductEditType::class, $product);
         $editForm->handleRequest($request);
         $driveActivation = $this->get('service_container')->getParameter('drive_activation');
+        $user = $this->getUser();
 
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            //setting the author for each comment
+            foreach ($editForm->get('comments')->getData() as $comment){
+                if($user === null){
+                    $comment->setAuthor('Anonymous');
+                } else {
+                    $comment->setAuthor($user->getUsername());
+                }
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             //updating order status

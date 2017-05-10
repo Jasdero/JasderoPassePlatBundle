@@ -11,8 +11,25 @@
                 {{ form_row(edit_form.user) }}
             </div>
             <div class="row">
-                <div class="col s12 input-field">
-                    {{ form_row(edit_form.comment) }}
+                <div class="col s12">
+                    <div class="valign-wrapper">
+                        <p>{{ form_label(edit_form.comments, 'Comments (200 characters max)') }}</p>
+                        <a href="#" class="add-another-comment addIcon col s1" title="Add a comment">
+                            <i class="small material-icons">add_circle</i>
+                        </a>
+                    </div>
+                    <div class="center-align">
+                        <p class="liveCount center-align blue-text"></p>
+                    </div>
+                    <ul id="edit-comment-field-list"
+                        data-prototype="{{ form_widget(edit_form.comments.vars.prototype)|e }}">
+                        {% for comment in edit_form.comments %}
+                        <li class="charactersCount">
+                            {{ form_errors(comment) }}
+                            {{ form_widget(comment) }}
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
 
             {# buttons section #}
@@ -30,3 +47,4 @@
         </div>
     </div>
 {% endblock %}
+
