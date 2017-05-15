@@ -39,7 +39,7 @@ class OrderFromDriveController extends CheckingController
         //initializing Client
         $drive = $this->get('jasdero_passe_plat.drive_connection')->connectToDriveApi();
 
-        // var to display when action triggered
+        // var to display number of new orders when action triggered
         $validOrder = null;
 
         // getting the files if the OAuth flow has been validated
