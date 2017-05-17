@@ -3,8 +3,9 @@
 {% block passe_plat_content %}
     <div class="container">
         <div class="row">
-            <h5 class="center-align">{{ container }} list</h5>
-
+            {% block list_title %}
+                <h5 class="center-align">{{ container }} list</h5>
+            {% endblock %}
             {# table section#}
             <div class="row">
                 <table class="bordered tablesorter" id="tableOrders">
@@ -106,18 +107,21 @@
             {% block pagination %}
             <div class="row">
                 <div class="center-align">
-                    <h3>{{ knp_pagination_render(orders) }}</h3>
+                    <h5>{{ knp_pagination_render(orders) }}</h5>
                 </div>
             </div>
             {% endblock %}
 
             {# buttons section #}
+            {% block newOrdersButton %}
             <div class="row">
                 <div class="center-align iconsBlock">
                     <a href={% if driveActivation %}"{{ path('drive_index') }}"{% else %}"{{ path('order_site_new') }}"{% endif %}
-                    class="addIcon" title="create a new {{ container }}"><i class="medium material-icons">add_circle</i></a>
+                    class="addIcon" title="create a new {{ container }}"><i class="medium material-icons">add_circle</i>
+                    </a>
                 </div>
             </div>
+            {% endblock %}
 
         </div>
     </div>

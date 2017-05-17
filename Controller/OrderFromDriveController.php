@@ -137,8 +137,6 @@ class OrderFromDriveController extends CheckingController
             $files = $this->getFilesFromFolder($drive, $folderId);
             $connection = true;
             $count = count($files);
-        } else {
-
         }
         return $this->render('@JasderoPassePlat/orders/ordersWaiting.html.twig', array(
             'count' => $count,
@@ -289,7 +287,7 @@ class OrderFromDriveController extends CheckingController
 
 
     /**
-     * access to view for sync with drive and displaying how much orders are on Drive
+     * access to view for sync with drive and displaying how much orders are on not synch on Drive
      * @Route("drive/action", name="drive_action")
      */
     public function showDriveAction()

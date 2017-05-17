@@ -34,6 +34,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
             array('/orders'),
             array('/state/'),
             array('/state/new'),
+            array('/orders/archives'),
             // ...
         );
     }

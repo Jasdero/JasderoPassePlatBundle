@@ -13,6 +13,7 @@ class OrdersEditType extends AbstractType
     {
         $builder
         ->remove('catalogs')
+        ->remove('comments')
         ;
     }
 

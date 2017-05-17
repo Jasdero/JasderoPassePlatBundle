@@ -28,7 +28,7 @@ class Orders
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="last_update", type="datetime", nullable=true)
+     * @ORM\Column(name="last_update", type="date", nullable=true)
      */
     private $lastUpdate;
 
@@ -54,6 +54,13 @@ class Orders
      * @ORM\Column(name="drive_synchro", type="boolean")
      */
     private $driveSynchro = 0;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="archive", type="boolean")
+     */
+    private $archive = 0;
 
     /**
      * @var \User
@@ -325,5 +332,29 @@ class Orders
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set archive
+     *
+     * @param boolean $archive
+     *
+     * @return Orders
+     */
+    public function setArchive($archive)
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
+    /**
+     * Get archive
+     *
+     * @return boolean
+     */
+    public function getArchive()
+    {
+        return $this->archive;
     }
 }

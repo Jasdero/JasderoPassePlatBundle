@@ -1,6 +1,6 @@
 table.tablesorter {
     background-color: #CDCDCD;
-    margin:10px 0pt 15px;
+    margin:10px 0 15px;
     width: 100%;
     text-align: left;
 }
@@ -77,4 +77,12 @@ h5{
 
 .tablebtn{
     width: 100%;
+}
+
+.commentLine{
+    margin-bottom: -25px;
+}
+
+.commentsIcons{
+    float: none;
 }

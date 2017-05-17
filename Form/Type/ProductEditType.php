@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityRepository;
 use Jasdero\PassePlatBundle\Entity\Catalog;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -65,14 +64,6 @@ class ProductEditType extends AbstractType
                 'choice_label' => 'name',
                 'expanded'=>false,
                 'multiple'=>false,
-            ))
-            ->add('comments',CollectionType::class, array(
-                'entry_type'=> CommentType::class,
-                'required' => false,
-                'label' => false,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
             ))
         ;
     }

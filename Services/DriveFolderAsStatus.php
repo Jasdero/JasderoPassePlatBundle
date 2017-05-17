@@ -41,38 +41,17 @@ class DriveFolderAsStatus
         //initializing Client
         $drive = $this->drive->connectToDriveApi();
 
-
         // getting to work if the OAuth flow has been validated
         if ($drive) {
 
-            //getting the id of root folder
             $pageToken = null;
-            $optParamsForFolder = array(
-                'pageToken' => $pageToken,
-                'q' => "name contains '$this->rootFolder'",
-                'fields' => 'nextPageToken, files(id)'
-            );
 
-            //recovering the folder
-            $results = $drive->files->listFiles($optParamsForFolder);
-
-            $rootFolderId = '';
-            foreach ($results->getFiles() as $file) {
-                $rootFolderId = ($file->getId());
-            }
+            //getting the id of root folder
+            $rootFolderId = $this->findDriveFolder($drive, $this->rootFolder);
 
             //checking if the folder with status name already exists
-            $optParamsForFolder = array(
-                'pageToken' => $pageToken,
-                'q' => "name contains '$statusName'",
-                'fields' => 'nextPageToken, files(id)'
-            );
+            $folderId = $this->findDriveFolder($drive, $statusName);
 
-            $results = $drive->files->listFiles($optParamsForFolder);
-            $folderId = '';
-            foreach ($results->getFiles() as $file) {
-                $folderId = ($file->getId());
-            }
             //creating folder if it doesn't exist
             if (!$folderId) {
                 $fileMetadata = new Google_Service_Drive_DriveFile(array(
@@ -83,15 +62,9 @@ class DriveFolderAsStatus
                     'uploadType' => 'multipart',
                     'fields' => 'id'));
                 $folderId = ($file->getId());
-            } else {
-                //if exists getting id
-                foreach ($results->getFiles() as $file) {
-                    $folderId = ($file->getId());
-                }
             }
 
             //checking the file exists
-
             //retrieving file corresponding to order
             $optParamsForFile = array(
                 'pageToken' => $pageToken,
@@ -129,14 +102,8 @@ class DriveFolderAsStatus
                 foreach ($completeOrder as $key => $order) {
                     $orderAsCsv[0][0] = 'user';
                     $orderAsCsv[0][1] = 'products';
-                    $orderAsCsv[0][2] = 'comments';
                     $orderAsCsv[$key + 1][] = $order->getOrders()->getUser()->getEmail();
                     $orderAsCsv[$key + 1][] = $order->getCatalog()->getId();
-                    if($order->getOrders()->getComment()){
-                        $orderAsCsv[$key + 1][] = $order->getOrders()->getComment()->getContent();
-                    } else {
-                        $orderAsCsv[$key + 1][] = 'no comments';
-                    }
                 }
                 $newFile = fopen('orderToCsv.csv', 'w+');
                 foreach ($orderAsCsv as $files) {
@@ -170,6 +137,30 @@ class DriveFolderAsStatus
             //if not authenticated restart for token
             return $this->drive->authCheckedAction();
         }
+    }
+
+    /**
+     * @param $drive
+     * @param $folder
+     * @return string
+     */
+    private function findDriveFolder($drive, $folder)
+    {
+        $pageToken = null;
+
+        $optParamsForFolder = array(
+            'pageToken' => $pageToken,
+            'q' => "name contains '$folder'",
+            'fields' => 'nextPageToken, files(id)'
+        );
+        //recovering the folder
+        $results = $drive->files->listFiles($optParamsForFolder);
+
+        $folderId = '';
+        foreach ($results->getFiles() as $file) {
+            $folderId = ($file->getId());
+        }
+        return $folderId;
     }
 
 }

@@ -19,28 +19,8 @@
             <div class="col s12 m4">
             {{ form_row(edit_form.state) }}
             </div>
-            <div class="row">
-                <div class="col s12">
-                    <div class="valign-wrapper">
-                        <p>{{ form_label(edit_form.comments, 'Comments (200 characters max)') }}</p>
-                        <a href="#" class="add-another-comment addIcon col s1" title="Add a comment">
-                            <i class="small material-icons">add_circle</i>
-                        </a>
-                    </div>
-                    <div class="center-align">
-                        <p class="liveCount center-align blue-text"></p>
-                    </div>
-                    <ul id="edit-comment-field-list"
-                        data-prototype="{{ form_widget(edit_form.comments.vars.prototype)|e }}">
-                        {% for comment in edit_form.comments %}
-                            <li>
-                                {{ form_errors(comment) }}
-                                {{ form_widget(comment, {'attr' : {'class' : 'charactersCount'}}) }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
+
+            {# buttons section #}
             <div class="col s12 center-align iconsBlock">
                 <a href="{{ path('product_index') }}" title="back">
                     <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i></button>
@@ -53,55 +33,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
-{% block passe_plat_javascripts %}
-    <script>
-        $(function () {
-
-            // Get the ul that holds the collection of tags
-            $collectionHolder = $('#edit-comment-field-list');
-            // add a delete link to all of the existing tag form li elements
-            $collectionHolder.find('li').each(function () {
-                addTagFormDeleteLink($(this));
-            });
-
-            var commentCount = '{{ edit_form.comments|length }}';
-            //Ajout au click + d'un champ prix
-            $('.add-another-comment').click(function (e) {
-                e.preventDefault();
-                var commentList = jQuery('#edit-comment-field-list');
-                // grab the prototype template
-                var newWidget = commentList.attr('data-prototype');
-                newWidget = newWidget.replace(/__name__/g, commentCount);
-                commentCount++;
-                // create a new list element and add it to the list
-                var newLi = jQuery('<li></li>').html(newWidget);
-                newLi.appendTo(commentList);
-                addTagFormDeleteLink(newLi);
-            });
-
-
-            function addTagFormDeleteLink($tagFormLi) {
-                var $removeFormA = $('<a href="#" title="remove this field (doesn\'t delete comment)" class="addIcon"><i class="material-icons">remove_circle</i>');
-                $tagFormLi.append($removeFormA);
-                $removeFormA.on('click', function (e) {
-                    // prevent the link from creating a "#" on the URL
-                    e.preventDefault();
-                    // remove the li for the tag form
-                    $tagFormLi.remove();
-                });
-            }
-
-            var fieldToCount = $('.charactersCount');
-            var fieldToDisplay  = $('.liveCount');
-            $(document).on('keyup', fieldToCount, (function (event) {
-                var remainingChars = 200 - ($(event.target).val().length);
-                if (remainingChars >= 0) {
-                    fieldToDisplay.text(remainingChars + ' characters left');
-                } else {
-                    fieldToDisplay.text('Too many characters !');
-                }
-            }))
-        })
-    </script>
 {% endblock %}

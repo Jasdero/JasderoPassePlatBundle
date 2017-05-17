@@ -1,4 +1,4 @@
-{% if connection %}
+{% if connection == true %}
     <p class="center-align">Number of {{ container }} in the folder to scan : {{ count }}</p>
 {% else %}
     <p class="center-align">You need to connect the <a href="{{ path('auth_checked') }}">Drive</a> first.</p>

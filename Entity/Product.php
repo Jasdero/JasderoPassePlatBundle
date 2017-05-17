@@ -48,6 +48,7 @@ class Product
      */
     private $state;
 
+
     /**
      * @var Catalog
      *
@@ -246,4 +247,6 @@ class Product
     {
         return $this->comments;
     }
+
+
 }

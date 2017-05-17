@@ -37,6 +37,7 @@ class ProductController extends Controller
             ->addSelect('c')
             ->leftJoin('p.orders', 'o')
             ->addSelect('o')
+            ->where('o.archive = false')
             ->leftJoin('p.state', 's')
             ->addSelect('s')
             ->leftJoin('c.category', 'k')
@@ -69,10 +70,12 @@ class ProductController extends Controller
         $em = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($product);
         $comments = $em->getRepository('JasderoPassePlatBundle:Comment')->findBy(['product'=>$product->getId()], ['lastUpdate' => 'DESC']);
+        $orderComments = $em->getRepository('JasderoPassePlatBundle:Comment')->findBy(['order'=>$product->getOrders()->getId()], ['lastUpdate' => 'DESC']);
 
         return $this->render('@JasderoPassePlat/product/show.html.twig', array(
             'product' => $product,
             'comments' => $comments,
+            'orderComments' => $orderComments,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -93,18 +96,9 @@ class ProductController extends Controller
         $editForm = $this->createForm(ProductEditType::class, $product);
         $editForm->handleRequest($request);
         $driveActivation = $this->get('service_container')->getParameter('drive_activation');
-        $user = $this->getUser();
 
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            //setting the author for each comment
-            foreach ($editForm->get('comments')->getData() as $comment){
-                if($user === null){
-                    $comment->setAuthor('Anonymous');
-                } else {
-                    $comment->setAuthor($user->getUsername());
-                }
-            }
 
             $this->getDoctrine()->getManager()->flush();
 
@@ -173,7 +167,7 @@ class ProductController extends Controller
     public function productsByStatusAction(State $state)
     {
         $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('JasderoPassePlatBundle:Product')->findBy(['state' => $state->getId()]);
+        $products = $em->getRepository('JasderoPassePlatBundle:Product')->findByStateWithAssociations($state);
 
         return $this->render('@JasderoPassePlat/product/productsFiltered.html.twig', array(
             'products' => $products,

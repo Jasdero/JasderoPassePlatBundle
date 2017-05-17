@@ -45,6 +45,7 @@ class MainControllerTest extends WebTestCase
           array('Categories'),
           array('Statuses'),
           array('Vats'),
+          array('Archives'),
         );
     }
 }

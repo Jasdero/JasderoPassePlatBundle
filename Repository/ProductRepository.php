@@ -21,12 +21,37 @@ class ProductRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function countProducts()
+    // counting products not in archives
+    public function countActiveProducts()
     {
         $qb = $this->createQueryBuilder('p');
-        $qb->select('count(p.id)');
+        $qb
+            ->select('count(p.id)')
+            ->leftJoin('p.orders', 'o')
+            ->where('o.archive = false');
 
         return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findByStateWithAssociations($state)
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb
+            ->leftJoin('p.orders', 'o')
+            ->addSelect('o')
+            ->where('o.archive = false')
+            ->leftJoin('p.catalog', 'c')
+            ->addSelect('c')
+            ->leftJoin('o.user', 'u')
+            ->addSelect('u')
+            ->leftJoin('p.state', 's')
+            ->addSelect('s')
+            ->andWhere('p.state = :state')
+            ->setParameter('state', $state);
+
+
+        return $qb->getQuery()->getResult();
     }
 
 }

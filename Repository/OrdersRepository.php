@@ -7,10 +7,13 @@ use Doctrine\ORM\EntityRepository;
 
 class OrdersRepository extends EntityRepository
 {
-    public function countOrders()
+    //counting orders not in archives
+    public function countActiveOrders()
     {
         $qb = $this->createQueryBuilder('o');
-        $qb->select('count(o.id)');
+        $qb
+            ->select('count(o.id)')
+            ->where('o.archive = false');
 
         return $qb->getQuery()->getSingleScalarResult();
     }
@@ -48,7 +51,8 @@ class OrdersRepository extends EntityRepository
             ->leftJoin('o.state', 's')
             ->addSelect('s')
             ->where('o.state = :state')
-            ->setParameter('state', $state);
+            ->setParameter('state', $state)
+            ->andWhere('o.archive = false');
 
         return $qb->getQuery()->getResult();
     }
@@ -75,6 +79,21 @@ class OrdersRepository extends EntityRepository
             ->where('s.id IN (:states)')
             ->setParameter('states', $states);
 
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findOrdersToArchive($state)
+    {
+        //retrieving orders with bottom status and older than 90 days
+
+        $qb = $this->createQueryBuilder('o');
+        $qb
+            ->select('o')
+            ->where('o.archive = false')
+            ->andWhere('DATE_DIFF(CURRENT_DATE(), o.lastUpdate) >= 90')
+            ->andWhere('o.state = :state' )
+            ->setParameter('state', $state);
 
         return $qb->getQuery()->getResult();
     }

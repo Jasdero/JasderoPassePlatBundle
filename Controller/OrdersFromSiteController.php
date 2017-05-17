@@ -34,13 +34,13 @@ class OrdersFromSiteController extends Controller
             foreach ($catalogs as $catalog) {
                 $products[] = $catalog->getId();
             }
-            $comments = $form->get('comment')->getData();
+            $comments = $form->get('comments')->getData();
 
             //creating order and recovering its id
             $orderId = $this->forward('JasderoPassePlatBundle:Orders:new', array(
                 'user' => $user,
                 'products' => $products,
-                'comments' => $comments
+                'comments' => $comments->getContent()
             ))->getContent();
 
             //retrieving order and creating file on Drive if activated

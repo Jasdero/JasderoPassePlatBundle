@@ -2,33 +2,24 @@
 
 {% block passe_plat_content %}
     <div class="container">
-        <div class="row center-block">
-            <h5 class="center-align">Create a new {{ container }}</h5>
+        <h5 class="center-align">Comment edit</h5>
 
-            {# form section #}
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
-            <div class="col s12 offset-m3 m6 left-align">
-                {{ form_row(form.catalogs) }}
-            </div>
-            <div class="col s12">
-                {{ form_row(form.user) }}
-            </div>
+        {# form section #}
+        <div class="row">
+            {{ form_start(edit_form) }}
+            {{ form_errors(edit_form) }}
             <div class="col s12 charactersCount">
-                {{ form_label(form.comments, 'comment (200 characters max)') }}
-                {{ form_widget(form.comments) }}
+                {{ form_label(edit_form.content, 'comment (200 characters max)') }}
+                {{ form_row(edit_form.content) }}
+            </div>
+            <div class="center-align">
                 <p class="liveCount center-align blue-text"></p>
             </div>
-            {# buttons section #}
-            <div class="center-align col s12 iconsBlock">
-                <a href="{{ path('orders_index') }}" title="back">
-                    <button type="button" class="btn-floating grey darken-3"><i class="material-icons">skip_previous</i>
-                    </button>
-                </a>
+            {# buttons section#}
+            <div class="col s12 iconsBlock center-align">
                 <button type="submit" class="btn-floating grey darken-3" title="confirm"><i class="material-icons">done</i></button>
+                {{ form_end(edit_form) }}
             </div>
-            {{ form_end(form) }}
-
         </div>
     </div>
 {% endblock %}

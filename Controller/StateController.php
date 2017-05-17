@@ -65,8 +65,8 @@ class StateController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $states = $em->getRepository('JasderoPassePlatBundle:State')->findAllStatesWithAssociations();
-        $totalProducts = $em->getRepository('JasderoPassePlatBundle:Product')->countProducts();
-        $totalOrders = $em->getRepository('JasderoPassePlatBundle:Orders')->countOrders();
+        $totalProducts = $em->getRepository('JasderoPassePlatBundle:Product')->countActiveProducts();
+        $totalOrders = $em->getRepository('JasderoPassePlatBundle:Orders')->countActiveOrders();
         $driveActivation = $this->get('service_container')->getParameter('drive_activation');
 
 

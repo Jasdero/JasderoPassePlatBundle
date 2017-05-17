@@ -15,6 +15,9 @@ class MainController extends Controller
      */
     public function dashboardAction()
     {
+        //archiving orders if needed
+        $this->placeOrdersToArchive();
+
         $driveActivation = $this->get('service_container')->getParameter('drive_activation');
         $em = $this->getDoctrine()->getManager();
         $states = $em->getRepository('JasderoPassePlatBundle:State')->findAllStatesWithAssociations();
@@ -45,6 +48,21 @@ class MainController extends Controller
             'orders' => $orders,
             'nbOrders' => $nbOrders
         ));
+    }
+
+
+    //function to move old and cleared orders to archives
+    public function placeOrdersToArchive()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $bottomState = $em->getRepository('JasderoPassePlatBundle:State')->findBottomState();
+        $orders = $em->getRepository('JasderoPassePlatBundle:Orders')->findOrdersToArchive($bottomState->getId());
+
+        foreach ($orders as $order){
+            $order->setArchive(true);
+        }
+        $em->flush();
+
     }
 
 }

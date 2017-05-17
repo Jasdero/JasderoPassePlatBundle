@@ -3,7 +3,6 @@
 namespace Jasdero\PassePlatBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Jasdero\PassePlatBundle\Entity\Catalog;
@@ -58,15 +57,12 @@ class OrdersType extends AbstractType
                 'label' => 'Owner',
                 'mapped' => 'false'
             ))
-            ->add('comments',CollectionType::class, array(
-                'entry_type'=> CommentType::class,
+            ->add('comments',CommentType::class, array(
                 'required' => false,
                 'label' => false,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+                'mapped' => false
             ))
-            ;
+        ;
     }
 
     /**
@@ -76,7 +72,6 @@ class OrdersType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Jasdero\PassePlatBundle\Entity\Orders',
-            'cascade_validation' => true
         ));
     }
 
