@@ -319,7 +319,7 @@ class OrdersController extends Controller
      * @param Orders $order
      * @return Response
      */
-    public function addOrderToArchive(Orders $order)
+    public function addOrderToArchiveAction(Orders $order)
     {
         $em = $this->getDoctrine()->getManager();
         $order->setArchive(true);
@@ -334,7 +334,7 @@ class OrdersController extends Controller
      * @param Orders $order
      * @return Response
      */
-    public function removeOrderFromArchive(Orders $order)
+    public function removeOrderFromArchiveAction(Orders $order)
     {
         $em = $this->getDoctrine()->getManager();
         $order->setArchive(false);

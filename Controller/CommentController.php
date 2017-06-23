@@ -99,7 +99,7 @@ class CommentController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
 
-    public function newCommentOnOrder(Request $request, Orders $order)
+    public function newCommentOnOrderAction(Request $request, Orders $order)
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -134,7 +134,7 @@ class CommentController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
 
-    public function newCommentOnProduct(Request $request, Product $product)
+    public function newCommentOnProductAction(Request $request, Product $product)
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);

@@ -52,7 +52,7 @@ class MainController extends Controller
 
 
     //function to move old and cleared orders to archives
-    public function placeOrdersToArchive()
+    private function placeOrdersToArchive()
     {
         $em = $this->getDoctrine()->getManager();
         $bottomState = $em->getRepository('JasderoPassePlatBundle:State')->findBottomState();
